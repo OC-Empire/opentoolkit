@@ -173,8 +173,19 @@
         <span class="tool-score">98/100</span>
       </div>
       <p class="tool-desc">Efficient ad blocker with CPU and memory efficiency as a primary feature.</p>
+      <div class="tool-benefits" id="ublock-benefits" style="display:none;margin:15px 0;padding:15px;background:rgba(88,166,255,0.1);border-radius:10px;border-left:3px solid #58a6ff;">
+        <h4 style="color:#58a6ff;margin:0 0 10px 0;font-size:0.95rem;">⭐ Key Benefits</h4>
+        <ul style="margin:0;padding-left:20px;color:#8b949e;font-size:0.9rem;line-height:1.8;">
+          <li><strong style="color:#c9d1d9;">CPU Efficient:</strong> Uses less memory than other ad blockers</li>
+          <li><strong style="color:#c9d1d9;">Privacy First:</strong> Blocks trackers and malware domains</li>
+          <li><strong style="color:#c9d1d9;">Custom Filters:</strong> Create your own blocking rules</li>
+          <li><strong style="color:#c9d1d9;">Open Source:</strong> Transparent, community-driven</li>
+          <li><strong style="color:#c9d1d9;">45,000+ Stars:</strong> Trusted by millions</li>
+        </ul>
+      </div>
       <div class="tool-meta"><span class="tool-platform"><i class="fab fa-globe"></i> web</span><span class="tool-category">Privacy</span></div>
       <div class="tool-actions">
+        <button class="btn btn-secondary" onclick="toggleBenefits('ublock-benefits', this)" style="background:rgba(88,166,255,0.2);color:#58a6ff;border:1px solid #58a6ff;"><i class="fas fa-info-circle"></i> Details</button>
         <a href="https://github.com/gorhill/uBlock" target="_blank" rel="noopener" class="btn btn-primary"><i class="fas fa-external-link-alt"></i> View</a>
       </div>
     </div>
@@ -7171,5 +7182,18 @@
             <p><a href="https://github.com/OC-Empire/opentoolkit"><i class="fab fa-github"></i> GitHub</a></p>
         </div>
     </div>
+
+    <script>
+        function toggleBenefits(id, btn) {
+            const el = document.getElementById(id);
+            if (el.style.display === 'none') {
+                el.style.display = 'block';
+                btn.innerHTML = '<i class="fas fa-chevron-up"></i> Hide';
+            } else {
+                el.style.display = 'none';
+                btn.innerHTML = '<i class="fas fa-info-circle"></i> Details';
+            }
+        }
+    </script>
 </body>
 </html>
