@@ -1,22 +1,8 @@
 {
   "name": "opentoolkit",
   "version": "1.0.0",
-  "description": "OpenToolkit - 500 Open Source Tools Directory",
+  "description": "OpenToolkit - 500 Open Source Tools",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "export": "next export"
-  },
-  "dependencies": {
-    "next": "^14.0.0",
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0",
-    "fuse.js": "^7.0.0"
-  },
-  "devDependencies": {
-    "@types/node": "^20.0.0",
-    "@types/react": "^18.0.0",
-    "typescript": "^5.0.0"
+    "deploy": "surge . opentoolkit.surge.sh"
   }
 }
