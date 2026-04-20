@@ -1782,11 +1782,24 @@
 
         // ===== INITIALIZE =====
         document.addEventListener('DOMContentLoaded', () => {
-            renderTools(toolsData);
-            setupSearch();
-            setupParallax();
-            setupParticles();
-            setupModalHandlers(); // Attach after rendering tools
+            try {
+                const container = document.getElementById('tools-container');
+                if (!container) {
+                    console.error("Tools container not found!");
+                    return;
+                }
+                if (!toolsData || toolsData.length === 0) {
+                    console.error("toolsData is empty or undefined!");
+                    return;
+                }
+                renderTools(toolsData);
+                setupSearch();
+                setupParallax();
+                setupParticles();
+                setupModalHandlers();
+            } catch (error) {
+                console.error("Initialization error:", error);
+            }
         });
 
         function setupModalHandlers() {
