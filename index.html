@@ -593,9 +593,9 @@
                 
                 const installCmd = getInstallCommand(tool);
                 
-                const toolData = encodeURIComponent(JSON.stringify(tool));
+                const toolIndex = allTools.indexOf(tool);
                 return `
-                <div class="tool-card" onclick='openModal(decodeURIComponent("${toolData}"))'>"&#39;")})'>
+                <div class="tool-card" onclick='openModal(${toolIndex})'>"&#39;")})'>
                     <div class="tool-header">
                         <div class="tool-icon-name">
                             <div class="tool-icon">
@@ -674,8 +674,8 @@
         });
 
         // Modal functions
-        function openModal(toolData) {
-            const tool = JSON.parse(toolData);
+        function openModal(toolIndex) {
+            const tool = allTools[toolIndex];
             const modal = document.getElementById('tool-modal');
             const overlay = document.getElementById('modal-overlay');
             const categoryIcon = categoryIcons[tool.category] || 'fa-toolbox';
