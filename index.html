@@ -1577,7 +1577,14 @@
 
             // Add click handlers and animations
             document.querySelectorAll('.tool-card').forEach((card, index) => {
-                card.addEventListener('click', () => {
+                card.addEventListener('click', (e) => {
+                    // Close all other cards
+                    document.querySelectorAll('.tool-card').forEach(otherCard => {
+                        if (otherCard !== card) {
+                            otherCard.classList.remove('expanded');
+                        }
+                    });
+                    // Toggle the clicked card
                     card.classList.toggle('expanded');
                 });
                 // Stagger animations
