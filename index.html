@@ -354,7 +354,7 @@
                     threshold: 0.3
                 });
                 
-                renderTools(allTools.slice(0, 50));
+                renderTools(allTools);
             } catch (error) {
                 document.getElementById('tools-container').innerHTML = 
                     '<div class="loading"><i class="fas fa-exclamation-triangle"></i>Error loading tools. Please refresh.</div>';
@@ -435,7 +435,7 @@
             }
             
             if (!query) {
-                renderTools(filtered.slice(0, 50));
+                renderTools(filtered);
                 return;
             }
             
@@ -445,7 +445,7 @@
             });
             
             const results = fuseInstance.search(query).map(r => r.item);
-            renderTools(results.slice(0, 50));
+            renderTools(results);
         });
 
         // Category filters
@@ -469,7 +469,7 @@
                     filtered = fuseInstance.search(query).map(r => r.item);
                 }
                 
-                renderTools(filtered.slice(0, 50));
+                renderTools(filtered);
             });
         });
 
