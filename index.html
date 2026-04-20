@@ -1786,8 +1786,10 @@
             setupSearch();
             setupParallax();
             setupParticles();
+            setupModalHandlers(); // Attach after rendering tools
+        });
 
-            // Attach modal handlers after tools are rendered
+        function setupModalHandlers() {
             document.querySelectorAll('.tool-card').forEach(card => {
               card.addEventListener('click', (e) => {
                 e.stopPropagation();
@@ -1808,7 +1810,10 @@
                   <p><strong>Category:</strong> ${tool.category}</p>
                   <p><strong>Score:</strong> ${tool.score}</p>
                   <p><strong>Platforms:</strong> ${tool.platforms}</p>
-                  <p><a href="${tool.website}" target="_blank">Website</a> | <a href="${tool.sourceUrl}" target="_blank">Source Code</a></p>
+                  <p>
+                    <a href="${tool.website}" target="_blank" class="modal-link">Website</a> |
+                    <a href="${tool.sourceUrl}" target="_blank" class="modal-link">Source Code</a>
+                  </p>
                 `;
                 modal.style.display = 'block';
                 modal.style.zIndex = '10000';
@@ -1826,6 +1831,7 @@
                 document.getElementById('tool-modal').style.display = 'none';
               }
             });
+        }
 
             // Rotate boxes on scroll
             window.addEventListener('scroll', () => {
@@ -1871,6 +1877,16 @@
         padding-bottom: 10px;
         margin-bottom: 15px;
         font-size: 1.5em;
+      }
+      .modal-link {
+        color: var(--eccentric-red) !important;
+        text-decoration: none;
+        font-weight: bold;
+        transition: color 0.2s;
+      }
+      .modal-link:hover {
+        color: var(--neon-red) !important;
+        text-decoration: underline;
       }
       #modal-details a {
         color: var(--eccentric-red);
