@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🔧 OpenToolkit - 500 Open Source Tools</title>
     <script src="https://unpkg.com/fuse.js@7.0.0/dist/fuse.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -13,116 +14,252 @@
             color: #c9d1d9;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
         }
-        .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 40px 20px; }
         .header { text-align: center; margin-bottom: 40px; }
         .header h1 {
-            font-size: 3rem;
+            font-size: 4rem;
             font-weight: 800;
-            background: linear-gradient(90deg, #58a6ff, #a371f7);
+            background: linear-gradient(90deg, #58a6ff, #a371f7, #f778ba);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+            animation: gradient 3s ease infinite;
+            background-size: 200% 200%;
         }
-        .header p { font-size: 1.2rem; color: #8b949e; }
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .header p { font-size: 1.3rem; color: #8b949e; margin-bottom: 25px; }
         .stats {
             display: inline-flex;
-            gap: 20px;
+            gap: 30px;
             margin-top: 20px;
-            padding: 15px 30px;
+            padding: 20px 40px;
             background: rgba(88, 166, 255, 0.1);
-            border-radius: 12px;
+            border-radius: 16px;
             border: 1px solid rgba(88, 166, 255, 0.3);
+            backdrop-filter: blur(10px);
+        }
+        .stat-item { text-align: center; }
+        .stat-item strong {
+            display: block;
+            font-size: 2rem;
+            color: #58a6ff;
+            margin-bottom: 5px;
+        }
+        .stat-item span { font-size: 0.9rem; color: #8b949e; }
+        .filters {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .filter-btn {
+            padding: 10px 20px;
+            background: rgba(48, 54, 61, 0.5);
+            border: 1px solid #30363d;
+            border-radius: 25px;
+            color: #8b949e;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+        .filter-btn:hover, .filter-btn.active {
+            background: rgba(88, 166, 255, 0.2);
+            border-color: #58a6ff;
+            color: #58a6ff;
         }
         .search-box {
             width: 100%;
-            padding: 15px 25px;
-            font-size: 1.1rem;
-            border-radius: 12px;
+            padding: 18px 30px;
+            font-size: 1.2rem;
+            border-radius: 16px;
             border: 2px solid #30363d;
-            background: #0d1117;
+            background: rgba(13, 17, 23, 0.8);
             color: #c9d1d9;
             outline: none;
             margin-bottom: 30px;
+            transition: all 0.3s;
         }
-        .search-box:focus { border-color: #58a6ff; }
+        .search-box:focus {
+            border-color: #58a6ff;
+            box-shadow: 0 0 20px rgba(88, 166, 255, 0.2);
+        }
+        .search-box::placeholder { color: #484f58; }
         .tools-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 25px;
         }
         .tool-card {
-            padding: 20px;
-            background: rgba(22, 27, 34, 0.8);
-            border-radius: 12px;
+            padding: 25px;
+            background: rgba(22, 27, 34, 0.6);
+            border-radius: 16px;
             border: 1px solid #30363d;
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: all 0.3s ease;
             cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        .tool-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #58a6ff, #a371f7);
+            opacity: 0;
+            transition: opacity 0.3s;
         }
         .tool-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
             border-color: #58a6ff;
+            background: rgba(22, 27, 34, 0.9);
         }
+        .tool-card:hover::before { opacity: 1; }
         .tool-header {
             display: flex;
             justify-content: space-between;
             align-items: start;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+        }
+        .tool-icon-name {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .tool-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, rgba(88, 166, 255, 0.2), rgba(163, 113, 247, 0.2));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #58a6ff;
         }
         .tool-name {
             margin: 0;
             color: #58a6ff;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             font-weight: 600;
         }
         .tool-score {
-            padding: 4px 10px;
-            background: rgba(88, 166, 255, 0.2);
+            padding: 6px 14px;
+            background: linear-gradient(135deg, rgba(88, 166, 255, 0.2), rgba(163, 113, 247, 0.2));
             border-radius: 20px;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             color: #58a6ff;
+            font-weight: 600;
         }
         .tool-desc {
             margin: 0 0 15px 0;
             color: #8b949e;
             font-size: 0.95rem;
-            line-height: 1.5;
+            line-height: 1.6;
         }
-        .tool-footer {
+        .tool-meta {
             display: flex;
-            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+        .tool-platform {
+            padding: 4px 10px;
+            background: rgba(48, 54, 61, 0.5);
+            border-radius: 15px;
+            font-size: 0.75rem;
+            color: #8b949e;
+            display: flex;
             align-items: center;
+            gap: 5px;
         }
         .tool-category {
-            padding: 4px 12px;
-            background: rgba(163, 113, 247, 0.2);
+            padding: 6px 14px;
+            background: rgba(163, 113, 247, 0.15);
             border-radius: 20px;
             font-size: 0.8rem;
             color: #a371f7;
+            font-weight: 500;
         }
-        .tool-link {
-            color: #58a6ff;
-            text-decoration: none;
+        .tool-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        .btn {
+            padding: 10px 18px;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
             font-size: 0.9rem;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
         }
-        .tool-link:hover { text-decoration: underline; }
+        .btn-primary {
+            background: linear-gradient(135deg, #238636, #2ea043);
+            color: white;
+        }
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #2ea043, #3fb950);
+            transform: scale(1.05);
+        }
+        .btn-secondary {
+            background: rgba(48, 54, 61, 0.8);
+            color: #c9d1d9;
+            border: 1px solid #30363d;
+        }
+        .btn-secondary:hover {
+            background: rgba(88, 166, 255, 0.2);
+            border-color: #58a6ff;
+            color: #58a6ff;
+        }
+        .btn-copy {
+            background: rgba(139, 148, 158, 0.2);
+            color: #8b949e;
+            border: 1px solid #30363d;
+        }
+        .btn-copy:hover {
+            background: rgba(88, 166, 255, 0.2);
+            border-color: #58a6ff;
+            color: #58a6ff;
+        }
+        .btn-copy.copied {
+            background: rgba(46, 160, 67, 0.2);
+            border-color: #2ea043;
+            color: #3fb950;
+        }
         .footer {
             text-align: center;
-            margin-top: 60px;
+            margin-top: 80px;
             padding: 40px;
             color: #8b949e;
+            border-top: 1px solid #30363d;
         }
         .footer a { color: #58a6ff; text-decoration: none; }
+        .footer a:hover { text-decoration: underline; }
         .loading {
             text-align: center;
-            padding: 40px;
-            font-size: 1.2rem;
+            padding: 60px;
+            font-size: 1.3rem;
             color: #8b949e;
         }
+        .loading i { font-size: 3rem; margin-bottom: 20px; display: block; }
         @media (max-width: 768px) {
-            .header h1 { font-size: 2rem; }
+            .header h1 { font-size: 2.5rem; }
             .tools-grid { grid-template-columns: 1fr; }
-            .stats { flex-direction: column; gap: 10px; }
+            .stats { flex-direction: column; gap: 15px; }
+            .filters { gap: 10px; }
+            .filter-btn { padding: 8px 15px; font-size: 0.8rem; }
         }
     </style>
 </head>
@@ -132,27 +269,79 @@
             <h1>🔧 OpenToolkit</h1>
             <p>500 Open Source Tools for Developers, Privacy & Automation</p>
             <div class="stats">
-                <div><strong id="total-tools">500</strong> Tools</div>
-                <div><strong>10</strong> Categories</div>
-                <div><strong>88.8</strong> Avg Score</div>
+                <div class="stat-item">
+                    <strong id="total-tools">500</strong>
+                    <span>Tools</span>
+                </div>
+                <div class="stat-item">
+                    <strong>10</strong>
+                    <span>Categories</span>
+                </div>
+                <div class="stat-item">
+                    <strong>88.8</strong>
+                    <span>Avg Score</span>
+                </div>
             </div>
         </div>
 
-        <input type="text" class="search-box" id="search" placeholder="Search 500+ tools...">
+        <div class="filters" id="category-filters">
+            <button class="filter-btn active" data-category="all">All</button>
+            <button class="filter-btn" data-category="Development">Dev</button>
+            <button class="filter-btn" data-category="System">System</button>
+            <button class="filter-btn" data-category="Security">Security</button>
+            <button class="filter-btn" data-category="AI">AI</button>
+            <button class="filter-btn" data-category="Privacy">Privacy</button>
+            <button class="filter-btn" data-category="Productivity">Productivity</button>
+            <button class="filter-btn" data-category="Communication">Comm</button>
+            <button class="filter-btn" data-category="Creative">Creative</button>
+            <button class="filter-btn" data-category="Gaming">Gaming</button>
+        </div>
+
+        <input type="text" class="search-box" id="search" placeholder="🔍 Search 500+ tools (e.g., 'docker', 'vpn', 'editor')...">
 
         <div id="tools-container" class="tools-grid">
-            <div class="loading">Loading 500 tools... 🚀</div>
+            <div class="loading">
+                <i class="fas fa-rocket fa-spin"></i>
+                Loading 500 tools...
+            </div>
         </div>
 
         <div class="footer">
             <p>🚀 Built with full automation • 500 tools • Open Source</p>
-            <p><a href="https://github.com/OC-Empire/opentoolkit">GitHub</a></p>
+            <p>
+                <a href="https://github.com/OC-Empire/opentoolkit"><i class="fab fa-github"></i> GitHub</a> • 
+                <a href="#" onclick="alert('Deploy to Vercel to go live!')">🌐 Deploy</a>
+            </p>
         </div>
     </div>
 
     <script>
         let allTools = [];
         let fuse = null;
+        let currentCategory = 'all';
+
+        const categoryIcons = {
+            'Development': 'fa-code',
+            'System': 'fa-server',
+            'Security': 'fa-shield-alt',
+            'AI': 'fa-robot',
+            'Privacy': 'fa-user-secret',
+            'Productivity': 'fa-bolt',
+            'Communication': 'fa-comments',
+            'Creative': 'fa-palette',
+            'Gaming': 'fa-gamepad',
+            'Learning': 'fa-graduation-cap'
+        };
+
+        const platformIcons = {
+            'windows': 'fa-windows',
+            'macos': 'fa-apple',
+            'linux': 'fa-linux',
+            'android': 'fa-android',
+            'ios': 'fa-apple',
+            'web': 'fa-globe',
+            'self-hosted': 'fa-server'
+        };
 
         async function loadTools() {
             try {
@@ -168,40 +357,120 @@
                 renderTools(allTools.slice(0, 50));
             } catch (error) {
                 document.getElementById('tools-container').innerHTML = 
-                    '<div class="loading">Error loading tools. Please refresh.</div>';
+                    '<div class="loading"><i class="fas fa-exclamation-triangle"></i>Error loading tools. Please refresh.</div>';
             }
+        }
+
+        function getInstallCommand(tool) {
+            if (tool.sourceUrl.includes('github.com')) {
+                return `git clone ${tool.sourceUrl}.git`;
+            }
+            return `curl -fsSL ${tool.sourceUrl} | sh`;
+        }
+
+        function copyToClipboard(text, btn) {
+            navigator.clipboard.writeText(text).then(() => {
+                btn.classList.add('copied');
+                btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                setTimeout(() => {
+                    btn.classList.remove('copied');
+                    btn.innerHTML = '<i class="fas fa-copy"></i> Copy';
+                }, 2000);
+            });
         }
 
         function renderTools(tools) {
             const container = document.getElementById('tools-container');
             if (tools.length === 0) {
-                container.innerHTML = '<div class="loading">No tools found.</div>';
+                container.innerHTML = '<div class="loading"><i class="fas fa-search"></i>No tools found.</div>';
                 return;
             }
             
-            container.innerHTML = tools.map(tool => `
+            container.innerHTML = tools.map(tool => {
+                const categoryIcon = categoryIcons[tool.category] || 'fa-toolbox';
+                const platforms = (tool.platforms || []).map(p => 
+                    `<span class="tool-platform"><i class="fab ${platformIcons[p] || 'fa-question'}"></i> ${p}</span>`
+                ).join('');
+                
+                const installCmd = getInstallCommand(tool);
+                
+                return `
                 <div class="tool-card">
                     <div class="tool-header">
-                        <h3 class="tool-name">${tool.name}</h3>
+                        <div class="tool-icon-name">
+                            <div class="tool-icon">
+                                <i class="fas ${categoryIcon}"></i>
+                            </div>
+                            <h3 class="tool-name">${tool.name}</h3>
+                        </div>
                         <span class="tool-score">${tool.score}/100</span>
                     </div>
                     <p class="tool-desc">${tool.description}</p>
-                    <div class="tool-footer">
+                    <div class="tool-meta">
+                        ${platforms}
                         <span class="tool-category">${tool.category}</span>
-                        <a href="${tool.sourceUrl}" target="_blank" rel="noopener" class="tool-link">View →</a>
+                    </div>
+                    <div class="tool-actions">
+                        <a href="${tool.sourceUrl}" target="_blank" rel="noopener" class="btn btn-primary">
+                            <i class="fas fa-external-link-alt"></i> View
+                        </a>
+                        <button class="btn btn-copy" onclick="copyToClipboard('${installCmd.replace(/'/g, "\\'")}', this)">
+                            <i class="fas fa-copy"></i> Copy
+                        </button>
+                        <a href="${tool.sourceUrl}" target="_blank" rel="noopener" class="btn btn-secondary">
+                            <i class="fab fa-github"></i> Star
+                        </a>
                     </div>
                 </div>
-            `).join('');
+            `}).join('');
         }
 
+        // Search
         document.getElementById('search').addEventListener('input', (e) => {
             const query = e.target.value;
+            let filtered = allTools;
+            
+            if (currentCategory !== 'all') {
+                filtered = allTools.filter(t => t.category === currentCategory);
+            }
+            
             if (!query) {
-                renderTools(allTools.slice(0, 50));
+                renderTools(filtered.slice(0, 50));
                 return;
             }
-            const results = fuse.search(query).map(r => r.item);
+            
+            const fuseInstance = new Fuse(filtered, {
+                keys: ['name', 'description', 'category', 'categories'],
+                threshold: 0.3
+            });
+            
+            const results = fuseInstance.search(query).map(r => r.item);
             renderTools(results.slice(0, 50));
+        });
+
+        // Category filters
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentCategory = btn.dataset.category;
+                
+                let filtered = allTools;
+                if (currentCategory !== 'all') {
+                    filtered = allTools.filter(t => t.category === currentCategory);
+                }
+                
+                const query = document.getElementById('search').value;
+                if (query) {
+                    const fuseInstance = new Fuse(filtered, {
+                        keys: ['name', 'description', 'category', 'categories'],
+                        threshold: 0.3
+                    });
+                    filtered = fuseInstance.search(query).map(r => r.item);
+                }
+                
+                renderTools(filtered.slice(0, 50));
+            });
         });
 
         loadTools();
