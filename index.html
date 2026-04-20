@@ -544,8 +544,11 @@
 
         async function loadTools() {
             try {
+                console.log('Fetching tools...');
                 const response = await fetch('data/tools.json');
+                console.log('Response:', response.status);
                 const data = await response.json();
+                console.log('Data loaded:', data.tools.length, 'tools');
                 allTools = data.tools;
                 
                 fuse = new Fuse(allTools, {
@@ -554,9 +557,11 @@
                 });
                 
                 renderTools(allTools);
+                console.log('Tools rendered!');
             } catch (error) {
+                console.error('Error loading tools:', error);
                 document.getElementById('tools-container').innerHTML = 
-                    '<div class="loading"><i class="fas fa-exclamation-triangle"></i>Error loading tools. Please refresh.</div>';
+                    '<div class="loading"><i class="fas fa-exclamation-triangle"></i>Error: ' + error.message + '</div>';
             }
         }
 
