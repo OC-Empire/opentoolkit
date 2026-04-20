@@ -1780,10 +1780,18 @@
             animate();
         }
 
+        // ===== DEBUG LOGGING =====
+        console.log("=== DEBUG START ===");
+        console.log("toolsData defined:", !!window.toolsData);
+        console.log("toolsData length:", window.toolsData ? window.toolsData.length : "undefined");
+        console.log("DOM readyState:", document.readyState);
+
         // ===== INITIALIZE =====
         document.addEventListener('DOMContentLoaded', () => {
             try {
+                console.log("DOMContentLoaded fired");
                 const container = document.getElementById('tools-container');
+                console.log("Tools container found:", !!container);
                 if (!container) {
                     console.error("Tools container not found!");
                     return;
@@ -1792,11 +1800,17 @@
                     console.error("toolsData is empty or undefined!");
                     return;
                 }
+                console.log("Rendering tools...");
                 renderTools(toolsData);
+                console.log("Setting up search...");
                 setupSearch();
+                console.log("Setting up parallax...");
                 setupParallax();
+                console.log("Setting up particles...");
                 setupParticles();
+                console.log("Setting up modal handlers...");
                 setupModalHandlers();
+                console.log("=== INIT DONE ===");
             } catch (error) {
                 console.error("Initialization error:", error);
             }
