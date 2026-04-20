@@ -1857,8 +1857,7 @@
               if (e.target === document.getElementById('tool-modal')) {
                 document.getElementById('tool-modal').style.display = 'none';
               }
-            });
-        }
+                }
 
             // Rotate boxes on scroll
             window.addEventListener('scroll', () => {
@@ -1866,7 +1865,6 @@
                     box.style.transform = `rotateX(${window.scrollY / 20}deg) rotateY(${window.scrollY / 20}deg)`;
                 });
             });
-        });
     </script>
     <!-- Tool Modal -->
     <div id="tool-modal" class="modal">
