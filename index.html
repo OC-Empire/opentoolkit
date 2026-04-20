@@ -1596,8 +1596,13 @@
             const categoryBtns = document.querySelectorAll('.category-btn');
             let currentCategory = 'all';
 
+            // Debounce search input for performance
+            let searchTimeout;
             searchInput.addEventListener('input', (e) => {
-                filterTools(e.target.value, currentCategory);
+                clearTimeout(searchTimeout);
+                searchTimeout = setTimeout(() => {
+                    filterTools(e.target.value, currentCategory);
+                }, 200);
             });
 
             categoryBtns.forEach(btn => {
@@ -1608,11 +1613,30 @@
                     filterTools(searchInput.value, currentCategory);
                 });
             });
+
+            // Add "Top 50" toggle
+            const top50Btn = document.createElement('button');
+            top50Btn.className = 'category-btn';
+            top50Btn.textContent = 'Top 50';
+            top50Btn.dataset.category = 'top50';
+            top50Btn.style.marginLeft = '10px';
+            top50Btn.addEventListener('click', () => {
+                categoryBtns.forEach(b => b.classList.remove('active'));
+                top50Btn.classList.add('active');
+                filterTools(searchInput.value, 'top50');
+            });
+
+            // Add the Top 50 button to the filters
+            const filtersContainer = document.getElementById('categoryFilters');
+            if (filtersContainer) {
+                filtersContainer.appendChild(top50Btn);
+            }
         }
 
         function filterTools(search, category) {
             let filtered = toolsData;
 
+            // Apply search filter
             if (search) {
                 const term = search.toLowerCase();
                 filtered = filtered.filter(t =>
@@ -1622,7 +1646,10 @@
                 );
             }
 
-            if (category !== 'all') {
+            // Top 50 filter - sort by score and take top 50
+            if (category === 'top50') {
+                filtered = [...filtered].sort((a, b) => b.score - a.score).slice(0, 50);
+            } else if (category !== 'all') {
                 filtered = filtered.filter(t => t.category === category);
             }
 
