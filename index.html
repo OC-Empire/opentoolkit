@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🔧 OpenToolkit — 500 Open Source Tools</title>
+    <title>🔧 OpenToolkit - 500 Open Source Tools</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* ===== CSS RESET & BASE ===== */
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
+
         :root {
-            --deep-black: #050508;
-            --void-black: #0a0a0f;
-            --panel-black: #111118;
-            --card-black: #16161f;
+            --deep-black: #0a0508;
+            --void-black: #0f0a0f;
+            --panel-black: #141114;
+            --card-black: #181418;
             --electric-blue: #00d4ff;
             --electric-glow: rgba(0, 212, 255, 0.3);
             --neon-red: #ff2d55;
@@ -25,21 +25,22 @@
             --text-secondary: #a0a0b0;
             --text-muted: #606070;
         }
-        
+
         html {
             scroll-behavior: smooth;
             background: var(--deep-black);
         }
-        
+
         body {
             min-height: 100vh;
             background: var(--deep-black);
+            background: linear-gradient(180deg, var(--deep-black) 0%, var(--void-black) 100%);
             color: var(--text-primary);
             font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
             overflow-x: hidden;
             position: relative;
         }
-        
+
         /* ===== PARTICLE BACKGROUND ===== */
         #particle-canvas {
             position: fixed;
@@ -51,7 +52,7 @@
             pointer-events: none;
             opacity: 0.6;
         }
-        
+
         /* ===== PARALLAX BOX LAYERS ===== */
         .parallax-container {
             position: fixed;
@@ -63,59 +64,59 @@
             pointer-events: none;
             overflow: hidden;
         }
-        
+
         .box-layer {
             position: absolute;
             will-change: transform;
         }
-        
+
         /* Back layer - slowest, largest, most transparent */
         .box-back {
             width: 300px;
             height: 300px;
-            border: 1px solid rgba(0, 212, 255, 0.1);
-            background: linear-gradient(135deg, rgba(0, 212, 255, 0.02), transparent);
+            border: 1px solid rgba(0, 212, 255, 0.05);
+            background: linear-gradient(135deg, rgba(10, 5, 8, 0.05), transparent);
         }
-        
+
         .box-back-1 { top: 10%; left: -5%; transform: rotate(15deg); }
         .box-back-2 { top: 40%; right: -8%; transform: rotate(-20deg); }
         .box-back-3 { top: 70%; left: 15%; transform: rotate(25deg); }
         .box-back-4 { top: 25%; right: 20%; transform: rotate(-10deg); }
-        
+
         /* Mid layer - medium speed, medium size */
         .box-mid {
             width: 180px;
             height: 180px;
-            border: 1px solid rgba(255, 45, 85, 0.15);
-            background: linear-gradient(135deg, rgba(255, 45, 85, 0.05), transparent);
-            box-shadow: 0 0 30px rgba(255, 45, 85, 0.1);
+            border: 1px solid rgba(255, 45, 85, 0.08);
+            background: linear-gradient(135deg, rgba(10, 5, 8, 0.1), transparent);
+            box-shadow: 0 0 20px rgba(255, 45, 85, 0.05);
         }
-        
+
         .box-mid-1 { top: 15%; right: 10%; transform: rotate(-15deg); }
         .box-mid-2 { top: 55%; left: 5%; transform: rotate(30deg); }
         .box-mid-3 { top: 80%; right: 25%; transform: rotate(-25deg); }
         .box-mid-4 { top: 35%; left: 30%; transform: rotate(10deg); }
-        
+
         /* Front layer - fastest, smallest, most visible */
         .box-front {
             width: 100px;
             height: 100px;
-            border: 2px solid var(--electric-blue);
-            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), transparent);
-            box-shadow: 0 0 40px var(--electric-glow), inset 0 0 20px rgba(0, 212, 255, 0.05);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            background: linear-gradient(135deg, rgba(10, 5, 8, 0.2), transparent);
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.1), inset 0 0 15px rgba(0, 212, 255, 0.03);
         }
-        
+
         .box-front-1 { top: 20%; left: 20%; transform: rotate(45deg); }
         .box-front-2 { top: 60%; right: 15%; transform: rotate(-35deg); }
         .box-front-3 { top: 45%; left: 60%; transform: rotate(60deg); }
         .box-front-4 { top: 75%; left: 45%; transform: rotate(-45deg); }
-        
+
         /* ===== MAIN CONTENT ===== */
         .content-wrapper {
             position: relative;
             z-index: 10;
         }
-        
+
         /* ===== HERO SECTION ===== */
         .hero {
             min-height: 100vh;
@@ -127,7 +128,7 @@
             padding: 40px 20px;
             position: relative;
         }
-        
+
         .hero-badge {
             display: inline-flex;
             align-items: center;
@@ -141,19 +142,19 @@
             margin-bottom: 30px;
             animation: pulse-glow 3s ease-in-out infinite;
         }
-        
+
         @keyframes pulse-glow {
             0%, 100% { box-shadow: 0 0 20px rgba(0, 212, 255, 0.2); }
             50% { box-shadow: 0 0 40px rgba(0, 212, 255, 0.4); }
         }
-        
+
         .hero h1 {
             font-size: clamp(3rem, 8vw, 6rem);
             font-weight: 900;
             line-height: 1.1;
             margin-bottom: 20px;
         }
-        
+
         .hero-title-gradient {
             background: linear-gradient(135deg, var(--electric-blue) 0%, #fff 50%, var(--neon-red) 100%);
             -webkit-background-clip: text;
@@ -162,13 +163,13 @@
             animation: gradient-shift 4s ease infinite;
             background-size: 200% 200%;
         }
-        
+
         @keyframes gradient-shift {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
-        
+
         .hero-subtitle {
             font-size: clamp(1.1rem, 2.5vw, 1.5rem);
             color: var(--text-secondary);
@@ -176,14 +177,14 @@
             margin-bottom: 40px;
             line-height: 1.6;
         }
-        
+
         .hero-stats {
             display: flex;
             gap: 40px;
             flex-wrap: wrap;
             justify-content: center;
         }
-        
+
         .stat-box {
             padding: 20px 30px;
             background: var(--panel-black);
@@ -192,7 +193,7 @@
             position: relative;
             overflow: hidden;
         }
-        
+
         .stat-box::before {
             content: '';
             position: absolute;
@@ -202,7 +203,7 @@
             height: 2px;
             background: linear-gradient(90deg, var(--electric-blue), var(--neon-red));
         }
-        
+
         .stat-number {
             font-size: 2.5rem;
             font-weight: 800;
@@ -210,14 +211,14 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        
+
         .stat-label {
             font-size: 0.85rem;
             color: var(--text-secondary);
             text-transform: uppercase;
             letter-spacing: 1px;
         }
-        
+
         .scroll-indicator {
             position: absolute;
             bottom: 40px;
@@ -231,37 +232,37 @@
             font-size: 0.8rem;
             animation: bounce 2s infinite;
         }
-        
+
         @keyframes bounce {
             0%, 100% { transform: translateX(-50%) translateY(0); }
             50% { transform: translateX(-50%) translateY(10px); }
         }
-        
+
         /* ===== TOOLS SECTION ===== */
         .tools-section {
             padding: 80px 20px;
             max-width: 1600px;
             margin: 0 auto;
         }
-        
+
         .section-header {
             text-align: center;
             margin-bottom: 60px;
         }
-        
+
         .section-header h2 {
             font-size: clamp(2rem, 5vw, 3rem);
             font-weight: 800;
             margin-bottom: 15px;
         }
-        
+
         .section-title-chrome {
             background: linear-gradient(180deg, #fff 0%, var(--chrome-mid) 50%, var(--chrome-end) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             position: relative;
         }
-        
+
         .section-title-chrome::after {
             content: 'THE ARSENAL';
             position: absolute;
@@ -272,14 +273,14 @@
             -webkit-text-fill-color: transparent;
             filter: blur(2px);
         }
-        
+
         /* ===== SEARCH BAR ===== */
         .search-container {
             max-width: 700px;
             margin: 0 auto 50px;
             position: relative;
         }
-        
+
         .search-box {
             width: 100%;
             padding: 20px 25px 20px 55px;
@@ -291,16 +292,16 @@
             outline: none;
             transition: all 0.3s ease;
         }
-        
+
         .search-box:focus {
             border-color: var(--electric-blue);
             box-shadow: 0 0 30px var(--electric-glow);
         }
-        
+
         .search-box::placeholder {
             color: var(--text-muted);
         }
-        
+
         .search-icon {
             position: absolute;
             left: 20px;
@@ -309,7 +310,7 @@
             color: var(--electric-blue);
             font-size: 1.2rem;
         }
-        
+
         /* ===== CATEGORY FILTERS ===== */
         .category-filters {
             display: flex;
@@ -318,7 +319,7 @@
             justify-content: center;
             margin-bottom: 40px;
         }
-        
+
         .category-btn {
             padding: 10px 20px;
             background: var(--card-black);
@@ -329,27 +330,27 @@
             cursor: pointer;
             transition: all 0.3s ease;
         }
-        
+
         .category-btn:hover {
             border-color: var(--electric-blue);
             color: var(--electric-blue);
             transform: translateY(-2px);
         }
-        
+
         .category-btn.active {
             background: linear-gradient(135deg, var(--electric-blue), var(--neon-red));
             border-color: transparent;
             color: var(--deep-black);
             font-weight: 600;
         }
-        
+
         /* ===== TOOLS GRID ===== */
         .tools-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
             gap: 25px;
         }
-        
+
         /* ===== TOOL CARD ===== */
         .tool-card {
             background: var(--card-black);
@@ -360,7 +361,7 @@
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
         }
-        
+
         /* Chrome border effect */
         .tool-card::before {
             content: '';
@@ -368,8 +369,8 @@
             inset: 0;
             border-radius: 20px;
             padding: 1px;
-            background: linear-gradient(135deg, 
-                rgba(255, 255, 255, 0.3) 0%, 
+            background: linear-gradient(135deg,
+                rgba(255, 255, 255, 0.3) 0%,
                 rgba(160, 160, 160, 0.1) 25%,
                 rgba(96, 96, 96, 0.2) 50%,
                 rgba(160, 160, 160, 0.1) 75%,
@@ -380,7 +381,7 @@
             mask-composite: exclude;
             pointer-events: none;
         }
-        
+
         /* Glow effect on hover */
         .tool-card::after {
             content: '';
@@ -393,28 +394,28 @@
             z-index: -1;
             filter: blur(10px);
         }
-        
+
         .tool-card:hover {
             transform: translateY(-8px) scale(1.02);
         }
-        
+
         .tool-card:hover::after {
             opacity: 0.5;
         }
-        
+
         .tool-header {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
             margin-bottom: 15px;
         }
-        
+
         .tool-icon-name {
             display: flex;
             align-items: center;
             gap: 15px;
         }
-        
+
         .tool-icon {
             width: 50px;
             height: 50px;
@@ -427,14 +428,14 @@
             color: var(--electric-blue);
             border: 1px solid rgba(0, 212, 255, 0.2);
         }
-        
+
         .tool-name {
             font-size: 1.3rem;
             font-weight: 700;
             color: var(--text-primary);
             margin: 0;
         }
-        
+
         .tool-score {
             padding: 6px 14px;
             background: linear-gradient(135deg, rgba(0, 212, 255, 0.2), rgba(255, 45, 85, 0.2));
@@ -444,21 +445,21 @@
             color: var(--electric-blue);
             border: 1px solid rgba(0, 212, 255, 0.3);
         }
-        
+
         .tool-desc {
             color: var(--text-secondary);
             font-size: 0.95rem;
             line-height: 1.6;
             margin-bottom: 15px;
         }
-        
+
         .tool-meta {
             display: flex;
             gap: 10px;
             margin-bottom: 15px;
             flex-wrap: wrap;
         }
-        
+
         .tool-platform {
             padding: 5px 12px;
             background: rgba(255, 255, 255, 0.05);
@@ -469,11 +470,11 @@
             align-items: center;
             gap: 5px;
         }
-        
+
         .tool-platform i {
             font-size: 0.8rem;
         }
-        
+
         .tool-category {
             display: inline-block;
             padding: 5px 14px;
@@ -483,13 +484,13 @@
             color: var(--electric-blue);
             font-weight: 500;
         }
-        
+
         .tool-actions {
             display: flex;
             gap: 10px;
             margin-top: 15px;
         }
-        
+
         .tool-btn {
             flex: 1;
             padding: 12px;
@@ -504,30 +505,30 @@
             justify-content: center;
             gap: 8px;
         }
-        
+
         .btn-primary {
             background: linear-gradient(135deg, var(--electric-blue), #00a8cc);
             color: var(--deep-black);
             border: none;
         }
-        
+
         .btn-primary:hover {
             transform: scale(1.05);
             box-shadow: 0 10px 30px var(--electric-glow);
         }
-        
+
         .btn-secondary {
             background: transparent;
             color: var(--text-secondary);
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
-        
+
         .btn-secondary:hover {
             border-color: var(--neon-red);
             color: var(--neon-red);
             box-shadow: 0 0 20px var(--neon-red-glow);
         }
-        
+
         /* ===== EXPANDABLE DETAILS ===== */
         .tool-details {
             max-height: 0;
@@ -536,17 +537,17 @@
             border-top: 1px solid rgba(255, 255, 255, 0.05);
             margin-top: 0;
         }
-        
+
         .tool-card.expanded .tool-details {
             max-height: 400px;
             padding-top: 20px;
             margin-top: 15px;
         }
-        
+
         .detail-section {
             margin-bottom: 15px;
         }
-        
+
         .detail-section h4 {
             font-size: 0.85rem;
             color: var(--electric-blue);
@@ -554,24 +555,24 @@
             text-transform: uppercase;
             letter-spacing: 1px;
         }
-        
+
         .detail-section p, .detail-section ul {
             font-size: 0.9rem;
             color: var(--text-secondary);
             line-height: 1.5;
         }
-        
+
         .detail-section ul {
             list-style: none;
             padding-left: 0;
         }
-        
+
         .detail-section li {
             padding: 4px 0;
             padding-left: 20px;
             position: relative;
         }
-        
+
         .detail-section li::before {
             content: '›';
             position: absolute;
@@ -579,7 +580,7 @@
             color: var(--neon-red);
             font-weight: bold;
         }
-        
+
         /* ===== FOOTER ===== */
         .footer {
             text-align: center;
@@ -587,61 +588,61 @@
             border-top: 1px solid rgba(255, 255, 255, 0.05);
             margin-top: 60px;
         }
-        
+
         .footer-text {
             color: var(--text-muted);
             font-size: 0.9rem;
         }
-        
+
         .footer-links {
             display: flex;
             gap: 30px;
             justify-content: center;
             margin-top: 20px;
         }
-        
+
         .footer-links a {
             color: var(--text-secondary);
             text-decoration: none;
             transition: color 0.3s ease;
         }
-        
+
         .footer-links a:hover {
             color: var(--electric-blue);
         }
-        
+
         /* ===== RESPONSIVE ===== */
         @media (max-width: 768px) {
             .hero-stats {
                 gap: 20px;
             }
-            
+
             .stat-box {
                 padding: 15px 20px;
             }
-            
+
             .stat-number {
                 font-size: 1.8rem;
             }
-            
+
             .tools-grid {
                 grid-template-columns: 1fr;
             }
-            
+
             .category-filters {
                 gap: 8px;
             }
-            
+
             .category-btn {
                 padding: 8px 15px;
                 font-size: 0.8rem;
             }
-            
+
             .box-back, .box-mid {
                 display: none;
             }
         }
-        
+
         /* ===== REDUCED MOTION ===== */
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after {
@@ -649,7 +650,7 @@
                 animation-iteration-count: 1 !important;
                 transition-duration: 0.01ms !important;
             }
-            
+
             .parallax-container {
                 display: none;
             }
@@ -659,7 +660,7 @@
 <body>
     <!-- Particle Background Canvas -->
     <canvas id="particle-canvas"></canvas>
-    
+
     <!-- Parallax Box Layers -->
     <div class="parallax-container">
         <!-- Back layer - slowest -->
@@ -667,20 +668,20 @@
         <div class="box-layer box-back box-back-2" data-speed="0.12"></div>
         <div class="box-layer box-back box-back-3" data-speed="0.08"></div>
         <div class="box-layer box-back box-back-4" data-speed="0.15"></div>
-        
+
         <!-- Mid layer - medium speed -->
         <div class="box-layer box-mid box-mid-1" data-speed="0.25"></div>
         <div class="box-layer box-mid box-mid-2" data-speed="0.3"></div>
         <div class="box-layer box-mid box-mid-3" data-speed="0.2"></div>
         <div class="box-layer box-mid box-mid-4" data-speed="0.35"></div>
-        
+
         <!-- Front layer - fastest -->
         <div class="box-layer box-front box-front-1" data-speed="0.5"></div>
         <div class="box-layer box-front box-front-2" data-speed="0.45"></div>
         <div class="box-layer box-front box-front-3" data-speed="0.55"></div>
         <div class="box-layer box-front box-front-4" data-speed="0.4"></div>
     </div>
-    
+
     <!-- Main Content -->
     <div class="content-wrapper">
         <!-- Hero Section -->
@@ -689,16 +690,16 @@
                 <i class="fas fa-bolt"></i>
                 <span>500 Open Source Tools Curated</span>
             </div>
-            
+
             <h1>
                 <span class="hero-title-gradient">OpenToolkit</span>
             </h1>
-            
+
             <p class="hero-subtitle">
-                The ultimate arsenal of privacy-first, self-hostable, and community-driven tools. 
+                The ultimate arsenal of privacy-first, self-hostable, and community-driven tools.
                 No tracking. No BS. Just pure utility.
             </p>
-            
+
             <div class="hero-stats">
                 <div class="stat-box">
                     <div class="stat-number">500</div>
@@ -713,25 +714,25 @@
                     <div class="stat-label">Open Source</div>
                 </div>
             </div>
-            
+
             <div class="scroll-indicator">
                 <span>Explore the arsenal</span>
                 <i class="fas fa-chevron-down"></i>
             </div>
         </section>
-        
+
         <!-- Tools Section -->
         <section class="tools-section">
             <div class="section-header">
                 <h2><span class="section-title-chrome">THE ARSENAL</span></h2>
             </div>
-            
+
             <!-- Search -->
             <div class="search-container">
                 <i class="fas fa-search search-icon"></i>
                 <input type="text" class="search-box" id="searchInput" placeholder="Search tools...">
             </div>
-            
+
             <!-- Category Filters -->
             <div class="category-filters" id="categoryFilters">
                 <button class="category-btn active" data-category="all">All</button>
@@ -744,13 +745,13 @@
                 <button class="category-btn" data-category="AI">AI</button>
                 <button class="category-btn" data-category="Creative">Creative</button>
             </div>
-            
+
             <!-- Tools Grid -->
             <div class="tools-grid" id="toolsGrid">
                 <!-- Tools will be injected here by JavaScript -->
             </div>
         </section>
-        
+
         <!-- Footer -->
         <footer class="footer">
             <p class="footer-text">Built with ⚡ by the OpenToolkit community</p>
@@ -761,7 +762,7 @@
             </div>
         </footer>
     </div>
-    
+
     <script>
         // ===== TOOLS DATA =====
         const toolsData = [
@@ -1522,7 +1523,7 @@
     }
   }
 ];
-        
+
         // ===== RENDER TOOLS =====
         function renderTools(tools) {
             const grid = document.getElementById('toolsGrid');
@@ -1566,7 +1567,7 @@
                     </div>
                 </div>
             `).join('');
-            
+
             // Add click handlers for expansion
             document.querySelectorAll('.tool-card').forEach(card => {
                 card.addEventListener('click', () => {
@@ -1574,7 +1575,7 @@
                 });
             });
         }
-        
+
         function getPlatformIcon(platform) {
             const icons = {
                 'Windows': 'windows',
@@ -1588,17 +1589,17 @@
             };
             return icons[platform] || 'circle';
         }
-        
+
         // ===== SEARCH & FILTER =====
         function setupSearch() {
             const searchInput = document.getElementById('searchInput');
             const categoryBtns = document.querySelectorAll('.category-btn');
             let currentCategory = 'all';
-            
+
             searchInput.addEventListener('input', (e) => {
                 filterTools(e.target.value, currentCategory);
             });
-            
+
             categoryBtns.forEach(btn => {
                 btn.addEventListener('click', () => {
                     categoryBtns.forEach(b => b.classList.remove('active'));
@@ -1608,47 +1609,47 @@
                 });
             });
         }
-        
+
         function filterTools(search, category) {
             let filtered = toolsData;
-            
+
             if (search) {
                 const term = search.toLowerCase();
-                filtered = filtered.filter(t => 
+                filtered = filtered.filter(t =>
                     t.name.toLowerCase().includes(term) ||
                     t.description.toLowerCase().includes(term) ||
                     t.category.toLowerCase().includes(term)
                 );
             }
-            
+
             if (category !== 'all') {
                 filtered = filtered.filter(t => t.category === category);
             }
-            
+
             renderTools(filtered);
         }
-        
+
         // ===== PARALLAX SCROLL EFFECT =====
         function setupParallax() {
             const layers = document.querySelectorAll('.box-layer');
             let ticking = false;
-            
+
             function updateParallax() {
                 const scrollY = window.scrollY;
                 const windowHeight = window.innerHeight;
                 const docHeight = document.documentElement.scrollHeight;
                 const scrollPercent = scrollY / (docHeight - windowHeight);
-                
+
                 layers.forEach(layer => {
                     const speed = parseFloat(layer.dataset.speed);
                     const yOffset = scrollY * speed;
                     const rotateOffset = scrollPercent * 20 * (speed * 2);
                     layer.style.transform = `translateY(${yOffset}px) rotate(${rotateOffset}deg)`;
                 });
-                
+
                 ticking = false;
             }
-            
+
             window.addEventListener('scroll', () => {
                 if (!ticking) {
                     requestAnimationFrame(updateParallax);
@@ -1656,22 +1657,22 @@
                 }
             }, { passive: true });
         }
-        
+
         // ===== PARTICLE BACKGROUND =====
         function setupParticles() {
             const canvas = document.getElementById('particle-canvas');
             const ctx = canvas.getContext('2d');
-            
+
             function resize() {
                 canvas.width = window.innerWidth;
                 canvas.height = window.innerHeight;
             }
             resize();
             window.addEventListener('resize', resize);
-            
+
             const particles = [];
             const particleCount = 30;
-            
+
             for (let i = 0; i < particleCount; i++) {
                 particles.push({
                     x: Math.random() * canvas.width,
@@ -1682,34 +1683,34 @@
                     opacity: Math.random() * 0.5 + 0.2
                 });
             }
-            
+
             let frameCount = 0;
             function animate() {
                 frameCount++;
                 // Render every 2nd frame for performance
                 if (frameCount % 2 === 0) {
                     ctx.clearRect(0, 0, canvas.width, canvas.height);
-                    
+
                     particles.forEach(p => {
                         p.x += p.vx;
                         p.y += p.vy;
-                        
+
                         if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
                         if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
-                        
+
                         ctx.beginPath();
                         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
                         ctx.fillStyle = `rgba(0, 212, 255, ${p.opacity})`;
                         ctx.fill();
                     });
-                    
+
                     // Draw connections
                     particles.forEach((p1, i) => {
                         particles.slice(i + 1).forEach(p2 => {
                             const dx = p1.x - p2.x;
                             const dy = p1.y - p2.y;
                             const dist = Math.sqrt(dx * dx + dy * dy);
-                            
+
                             if (dist < 100) {
                                 ctx.beginPath();
                                 ctx.moveTo(p1.x, p1.y);
@@ -1720,13 +1721,13 @@
                         });
                     });
                 }
-                
+
                 requestAnimationFrame(animate);
             }
-            
+
             animate();
         }
-        
+
         // ===== INITIALIZE =====
         document.addEventListener('DOMContentLoaded', () => {
             renderTools(toolsData);
