@@ -14,8 +14,8 @@
             --void-black: #0f0a0f;
             --panel-black: #141114;
             --card-black: #181418;
-            --eccentric-red: #ff1a33;
-            --matte-finish: rgba(255, 26, 51, 0.15);
+            --subtle-red: #3a0a0a;
+            --red-glow: rgba(255, 45, 45, 0.1);
             --electric-blue: #00d4ff;
             --electric-glow: rgba(0, 212, 255, 0.3);
             --neon-red: #ff2d55;
@@ -52,7 +52,8 @@
             height: 100%;
             z-index: 0;
             pointer-events: none;
-            opacity: 0.6;
+            background: linear-gradient(to bottom, var(--subtle-red), transparent 30%);
+            opacity: 0.8;
         }
 
         /* ===== PARALLAX BOX LAYERS ===== */
@@ -1783,6 +1784,13 @@
             setupSearch();
             setupParallax();
             setupParticles();
+
+            // Rotate boxes on scroll
+            window.addEventListener('scroll', () => {
+                document.querySelectorAll('.box-layer').forEach(box => {
+                    box.style.transform = `rotateX(${window.scrollY / 20}deg) rotateY(${window.scrollY / 20}deg)`;
+                });
+            });
         });
     </script>
     <!-- Tool Modal -->
@@ -1827,6 +1835,7 @@
       document.querySelectorAll('.tool-card').forEach(card => {
         card.addEventListener('click', (e) => {
           e.stopPropagation();
+          const modal = document.getElementById('tool-modal');
           const tool = {
             name: card.querySelector('.tool-name').textContent,
             description: card.querySelector('.tool-desc').textContent,
@@ -1845,7 +1854,8 @@
             <p><strong>Platforms:</strong> ${tool.platforms}</p>
             <p><a href="${tool.website}" target="_blank">Website</a> | <a href="${tool.sourceUrl}" target="_blank">Source Code</a></p>
           `;
-          document.getElementById('tool-modal').style.display = 'block';
+          modal.style.display = 'block';
+          modal.style.zIndex = '10000'; // Ensure it's on top
         });
       });
 
