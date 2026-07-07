@@ -1108,6 +1108,7 @@ export const productPillars = [
 
 export const navigationItems = [
   { href: '/', label: 'Home' },
+  { href: '/tools/', label: 'Tools' },
   { href: '/stacks/', label: 'Stacks' },
   { href: '/compose/', label: 'Compose' },
   { href: '/replace/', label: 'Replace' },
@@ -1118,6 +1119,9 @@ export const navigationItems = [
   { href: '/rankings/', label: 'Rankings' },
   { href: '/radar/', label: 'Radar' },
   { href: '/shortlist/', label: 'Shortlist' },
+  { href: '/methodology/', label: 'Methodology' },
+  { href: '/ecosystem/', label: 'Ecosystem' },
+  { href: '/about/', label: 'About' },
 ]
 
 export function getToolBySlug(slug: string) {

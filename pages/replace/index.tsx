@@ -35,6 +35,11 @@ export default function ReplacePage() {
                   <div style={{ marginTop: '12px' }} className="f-chip f-chip-blue">
                     Friction: {scenario.friction}
                   </div>
+                  <div style={{ marginTop: '12px' }}>
+                    <Link href={`/replace/${scenario.slug}/`} className="f-button f-button-ghost">
+                      Open replacement dossier
+                    </Link>
+                  </div>
                 </div>
               </div>
 

@@ -65,6 +65,21 @@ const entryPaths = [
     body: 'See the tools and patterns that are gaining strategic weight.',
     href: '/radar/',
   },
+  {
+    title: 'Open the full tool library',
+    body: 'Inspect the whole judgment corpus directly instead of waiting for editorial entry points.',
+    href: '/tools/',
+  },
+  {
+    title: 'See how OpenToolkit judges',
+    body: 'Open the methodology layer and inspect the scoring worldview behind the platform.',
+    href: '/methodology/',
+  },
+  {
+    title: 'See how this becomes a living platform',
+    body: 'Inspect the ecosystem loops that can turn the site into an ongoing signal engine.',
+    href: '/ecosystem/',
+  },
 ]
 
 function SpotlightCard({ tool, index }: { tool: Tool; index: number }) {
@@ -177,6 +192,9 @@ export default function Home() {
               </Link>
               <Link href="/graph/" className="f-button f-button-ghost">
                 Inspect the graph
+              </Link>
+              <Link href="/tools/" className="f-button f-button-ghost">
+                Open tool library
               </Link>
               <Link href="/shortlist/" className="f-button f-button-ghost">
                 Open shortlist

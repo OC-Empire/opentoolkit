@@ -1,8 +1,21 @@
+import { useMemo, useState } from 'react'
 import Link from 'next/link'
 import FuturisticShell from '../../components/FuturisticShell'
 import { collections, getToolsByNames, getWhyItWins } from '../../lib/opentoolkit'
 
 export default function CollectionsPage() {
+  const [search, setSearch] = useState('')
+  const [tagFilter, setTagFilter] = useState('All')
+  const tags = ['All', ...Array.from(new Set(collections.flatMap((collection) => collection.tags)))]
+  const visibleCollections = useMemo(() => {
+    return collections.filter((collection) => {
+      const haystack = `${collection.title} ${collection.description} ${collection.angle} ${collection.thesis} ${collection.tags.join(' ')}`
+      if (search && !haystack.toLowerCase().includes(search.toLowerCase())) return false
+      if (tagFilter !== 'All' && !collection.tags.includes(tagFilter)) return false
+      return true
+    })
+  }, [search, tagFilter])
+
   return (
     <FuturisticShell title="Collections" eyebrow="Editorial layer">
       <section className="f-hero f-card rise-in" style={{ padding: '28px' }}>
@@ -12,8 +25,26 @@ export default function CollectionsPage() {
         </p>
       </section>
 
+      <section className="f-panel f-card rise-in" style={{ padding: '22px', marginTop: '22px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1.5fr 1fr', gap: '12px' }}>
+          <input
+            value={search}
+            onChange={(event) => setSearch(event.target.value)}
+            placeholder="Search collections, themes, or editorial angles..."
+            className="f-input"
+          />
+          <select value={tagFilter} onChange={(event) => setTagFilter(event.target.value)} className="f-select">
+            {tags.map((tag) => (
+              <option key={tag} value={tag}>
+                {tag}
+              </option>
+            ))}
+          </select>
+        </div>
+      </section>
+
       <div style={{ display: 'grid', gap: '18px', marginTop: '22px' }}>
-        {collections.map((collection, index) => {
+        {visibleCollections.map((collection, index) => {
           const tools = getToolsByNames(collection.toolNames)
 
           return (

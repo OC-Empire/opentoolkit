@@ -25,6 +25,11 @@ export default function RankingsPage() {
               <div style={{ maxWidth: '760px' }}>
                 <div className="f-chip f-chip-red">{lane.title}</div>
                 <p style={{ margin: '14px 0 0', color: 'var(--text-soft)', lineHeight: 1.7 }}>{lane.description}</p>
+                <div style={{ marginTop: '12px' }}>
+                  <Link href={`/rankings/${lane.slug}/`} className="f-button f-button-ghost">
+                    Open ranking dossier
+                  </Link>
+                </div>
               </div>
 
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '14px', marginTop: '18px' }}>
