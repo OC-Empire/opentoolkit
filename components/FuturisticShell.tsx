@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 import Link from 'next/link'
+import { navigationItems } from '../lib/opentoolkit'
 
 const particles = Array.from({ length: 24 }, (_, index) => ({
   id: index,
@@ -104,6 +105,21 @@ export default function FuturisticShell({ children, title, eyebrow, backHref, ba
           max-width: 1240px;
           margin: 0 auto;
           padding: 28px 18px 80px;
+        }
+
+        .f-nav {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 16px;
+          margin-bottom: 18px;
+          flex-wrap: wrap;
+        }
+
+        .f-nav-links {
+          display: flex;
+          gap: 10px;
+          flex-wrap: wrap;
         }
 
         .f-hero {
@@ -313,6 +329,20 @@ export default function FuturisticShell({ children, title, eyebrow, backHref, ba
         ))}
 
         <div className="f-container">
+          <header className="f-nav rise-in">
+            <Link href="/" className="f-chip f-chip-red" style={{ textDecoration: 'none' }}>
+              OpenToolkit
+            </Link>
+
+            <nav className="f-nav-links">
+              {navigationItems.map((item) => (
+                <Link key={item.href} href={item.href} className="f-chip" style={{ textDecoration: 'none' }}>
+                  {item.label}
+                </Link>
+              ))}
+            </nav>
+          </header>
+
           {(title || eyebrow || backHref) && (
             <div className="rise-in" style={{ marginBottom: '18px' }}>
               {backHref && backLabel && (

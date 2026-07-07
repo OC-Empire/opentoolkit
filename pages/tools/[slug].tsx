@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 import Link from 'next/link'
 import FuturisticShell from '../../components/FuturisticShell'
+import ShortlistButton from '../../components/ShortlistButton'
 import {
   allTools,
   formatStars,
@@ -186,6 +187,7 @@ export default function ToolPage({ slug }: ToolPageProps) {
             >
               Research this tool
             </a>
+            <ShortlistButton slug={tool.slug} />
           </div>
         </section>
 
