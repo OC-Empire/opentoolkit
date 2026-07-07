@@ -44,6 +44,21 @@ export default function EcosystemPage() {
           </Link>
         </div>
       </section>
+
+      <section className="f-panel f-card rise-in" style={{ padding: '22px', marginTop: '22px' }}>
+        <div className="f-kicker">What turns this into a real movement</div>
+        <div style={{ display: 'grid', gap: '10px', marginTop: '12px' }}>
+          {[
+            'Weekly radar drops that feel like software intelligence briefings.',
+            'More public reports that crystallize audience-specific stack choices.',
+            'User-publishable stack stories once private shortlist boards become mature enough.',
+          ].map((line) => (
+            <div key={line} className="f-card" style={{ padding: '14px', background: 'rgba(255,255,255,0.03)', color: 'var(--text-soft)', lineHeight: 1.7 }}>
+              {line}
+            </div>
+          ))}
+        </div>
+      </section>
     </FuturisticShell>
   )
 }

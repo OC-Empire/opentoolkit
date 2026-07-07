@@ -363,6 +363,9 @@ export default function FuturisticShell({ children, title, eyebrow, backHref, ba
             </div>
           )}
           {children}
+          <footer className="rise-in" style={{ marginTop: '28px', color: 'var(--text-dim)', fontSize: '0.94rem' }}>
+            OpenToolkit is a command center for software choice, stack design, and leaving bad defaults on purpose.
+          </footer>
         </div>
       </div>
     </div>

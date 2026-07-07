@@ -86,6 +86,17 @@ export default function RadarPage() {
                     </div>
                   </div>
 
+                  <div className="f-card" style={{ padding: '14px', background: 'rgba(255,255,255,0.03)', marginTop: '12px' }}>
+                    <div className="f-kicker">Command read</div>
+                    <div style={{ display: 'grid', gap: '8px', marginTop: '10px' }}>
+                      {entry.actions.slice(0, 2).map((action) => (
+                        <div key={action} style={{ color: 'var(--text-soft)', lineHeight: 1.6 }}>
+                          {action}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
                   <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginTop: '12px' }}>
                     {tools.map((tool) => (
                       <Link key={tool.slug} href={`/tools/${tool.slug}/`} className="f-chip" style={{ textDecoration: 'none' }}>

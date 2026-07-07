@@ -17,6 +17,7 @@ import {
   productPillars,
   replacementScenarios,
   scenarioPresets,
+  stackReports,
   stackRecipes,
   Tool,
 } from '../lib/opentoolkit'
@@ -69,6 +70,11 @@ const entryPaths = [
     title: 'Open the full tool library',
     body: 'Inspect the whole judgment corpus directly instead of waiting for editorial entry points.',
     href: '/tools/',
+  },
+  {
+    title: 'Read public stack reports',
+    body: 'Open reusable verdict dossiers built around real audiences, risks, and next moves.',
+    href: '/reports/',
   },
   {
     title: 'See how OpenToolkit judges',
@@ -187,6 +193,9 @@ export default function Home() {
               <Link href="/compare/" className="f-button">
                 Enter compare mode
               </Link>
+              <Link href="/reports/" className="f-button">
+                Read stack reports
+              </Link>
               <Link href="/replace/" className="f-button f-button-ghost">
                 Open replacement engine
               </Link>
@@ -207,21 +216,58 @@ export default function Home() {
             style={{
               padding: '20px',
               display: 'grid',
-              gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
               gap: '14px',
             }}
           >
-              {[
-                { value: `${allTools.length}+`, label: 'Curated tools' },
-                { value: `${verifiedCount}`, label: 'Verified picks' },
-                { value: `${stackRecipes.length}`, label: 'Flagship stacks' },
-                { value: `${migrationCount + migrationJourneys.length}`, label: 'Migration routes' },
-              ].map((stat) => (
+            {[
+              { value: `${allTools.length}+`, label: 'Curated tools' },
+              { value: `${verifiedCount}`, label: 'Verified picks' },
+              { value: `${stackRecipes.length}`, label: 'Flagship stacks' },
+              { value: `${migrationCount + migrationJourneys.length}`, label: 'Migration routes' },
+              { value: `${stackReports.length}`, label: 'Public reports' },
+            ].map((stat) => (
                 <div key={stat.label} className="f-card" style={{ padding: '16px', background: 'rgba(255,255,255,0.03)' }}>
                   <div style={{ fontSize: '1.8rem', fontWeight: 800 }}>{stat.value}</div>
-                <div style={{ marginTop: '6px', color: 'var(--text-soft)' }}>{stat.label}</div>
+                  <div style={{ marginTop: '6px', color: 'var(--text-soft)' }}>{stat.label}</div>
+                </div>
+              ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="rise-in" style={{ marginTop: '22px', animationDelay: '0.09s' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '18px' }}>
+          <div className="f-panel f-card" style={{ padding: '22px' }}>
+            <div className="f-kicker">Public verdict layer</div>
+            <h2 style={{ margin: '8px 0 10px', fontSize: '1.9rem' }}>Stack reports turn taste into artifacts.</h2>
+            <p style={{ margin: 0, color: 'var(--text-soft)', lineHeight: 1.75 }}>
+              Reports are where OpenToolkit becomes portable. They turn platform judgment into audience-shaped
+              dossiers with risks, next moves, and a point of view strong enough to share.
+            </p>
+            <div style={{ marginTop: '16px', display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+              <Link href="/reports/" className="f-button">
+                Browse reports
+              </Link>
+              <Link href="/about/" className="f-button f-button-ghost">
+                Read the manifesto
+              </Link>
+            </div>
+          </div>
+
+          <div className="f-panel f-card" style={{ padding: '22px' }}>
+            <div className="f-kicker">Method and myth</div>
+            <div style={{ display: 'grid', gap: '10px', marginTop: '12px' }}>
+              {[
+                'Judgment should be inspectable, not mystical.',
+                'Migration routes should feel realistic, not sermon-like.',
+                'The site should behave like a command center, not a spreadsheet with glow effects.',
+              ].map((line) => (
+                <div key={line} className="f-card" style={{ padding: '14px', background: 'rgba(255,255,255,0.03)', color: 'var(--text-soft)', lineHeight: 1.65 }}>
+                  {line}
+                </div>
+              ))}
               </div>
-            ))}
           </div>
         </div>
       </section>

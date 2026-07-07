@@ -163,6 +163,25 @@ export type IntelligenceLedgerEntry = {
   actions: string[]
 }
 
+export type StackReport = {
+  slug: string
+  title: string
+  subtitle: string
+  audience: string
+  thesis: string
+  profileSlug: string
+  presetSlug: string
+  toolSlugs: string[]
+  verdict: string[]
+  risks: string[]
+  nextMoves: string[]
+}
+
+export type ManifestoPillar = {
+  title: string
+  body: string
+}
+
 export const allTools = toolkit.tools as Tool[]
 
 export const stackRecipes: StackRecipe[] = [
@@ -1087,6 +1106,103 @@ export const intelligenceLedger: IntelligenceLedgerEntry[] = [
   },
 ]
 
+export const stackReports: StackReport[] = [
+  {
+    slug: 'privacy-calm-daily-report',
+    title: 'Privacy Calm Daily Report',
+    subtitle: 'A low-drama stack for people who want better defaults without making software self-defense their whole personality.',
+    audience: 'Daily operators, families, students, and mainstream users exiting surveillance defaults.',
+    thesis: 'The winning privacy stack for most people is not the purest one. It is the one that survives ordinary life.',
+    profileSlug: 'hosted-calm',
+    presetSlug: 'privacy-without-madness',
+    toolSlugs: ['firefox', 'ublock-origin', 'bitwarden', 'signal', 'ente', 'tuta'],
+    verdict: [
+      'The browser-password-message triangle does most of the work, so it deserves priority over exotic infrastructure moves.',
+      'Hosted privacy tools are a feature here, not a compromise to apologize for.',
+      'The stack is intentionally boring enough to remain sticky after the first burst of enthusiasm fades.',
+    ],
+    risks: [
+      'People may overestimate what one tool swap fixes if account hygiene stays chaotic.',
+      'Mail migration still carries social and recovery complexity.',
+      'A calm stack can stagnate if the user never graduates into stronger backup and archive habits.',
+    ],
+    nextMoves: [
+      'Add a migration ledger for critical accounts.',
+      'Introduce private storage with Ente or Nextcloud once the identity layer feels stable.',
+      'Run a quarterly review on recovery methods and device trust.',
+    ],
+  },
+  {
+    slug: 'builder-sovereign-report',
+    title: 'Builder Sovereign Report',
+    subtitle: 'A stack report for operators who want leverage, local capability, and control over their workbench.',
+    audience: 'Developers, tinkerers, researchers, and systems-minded builders.',
+    thesis: 'A builder stack should feel like an owned workshop, not a rented dashboard.',
+    profileSlug: 'builder-sovereign',
+    presetSlug: 'operator-control',
+    toolSlugs: ['ollama', 'open-webui', 'vscode', 'docker', 'git', 'nextcloud', 'obsidian'],
+    verdict: [
+      'Local AI only becomes operationally meaningful when it sits near code, notes, and reproducible runtime layers.',
+      'Nextcloud and Git are less glamorous than model demos, but they are the continuity backbone for the whole setup.',
+      'This stack wins because every piece compounds the others instead of behaving like isolated toys.',
+    ],
+    risks: [
+      'Local-first ambition can turn into maintenance drag if runtime complexity outruns actual use.',
+      'Context management becomes the silent failure point when notes and project state stay sloppy.',
+      'Builders may overbuild orchestration before proving the human workflow.',
+    ],
+    nextMoves: [
+      'Document one canonical dev loop around Docker, local models, and notes.',
+      'Stabilize backup and sync for project knowledge, not just code.',
+      'Benchmark real tasks, not abstract tool feature checklists.',
+    ],
+  },
+  {
+    slug: 'creator-owned-media-report',
+    title: 'Creator Owned Media Report',
+    subtitle: 'A media stack report for people who want their capture, archive, and playback flow to outlive platform mood swings.',
+    audience: 'Creators, streamers, editors, and media archivists.',
+    thesis: 'Creator sovereignty is less about one killer editing tool and more about owning the entire media chain.',
+    profileSlug: 'creator-owned',
+    presetSlug: 'creator-stack-pressure',
+    toolSlugs: ['obs-studio', 'ffmpeg', 'blender', 'krita', 'jellyfin', 'immich'],
+    verdict: [
+      'Capture and archive discipline should outrank short-term polish choices.',
+      'FFmpeg and Jellyfin do invisible heavy lifting because they preserve continuity and portability.',
+      'This report leans toward durable formats, reusable assets, and self-owned libraries over subscription comfort.',
+    ],
+    risks: [
+      'Project organization can stay messy even with excellent tools.',
+      'Self-hosted media layers become fragile if backup discipline is hand-wavy.',
+      'Platform publishing gravity still pulls people back if export workflows are not smooth.',
+    ],
+    nextMoves: [
+      'Standardize file naming and archive structure.',
+      'Create one publishing-to-archive workflow template.',
+      'Audit where proprietary tools still create lock-in and reduce them deliberately.',
+    ],
+  },
+]
+
+export const manifestoPillars: ManifestoPillar[] = [
+  {
+    title: 'Choice is infrastructure',
+    body: 'Software decisions are not just purchases. They shape memory, identity, collaboration, and dependency over time.',
+  },
+  {
+    title: 'Taste matters',
+    body: 'A serious platform should not pretend every option is equally good. Judgment is part of the product.',
+  },
+  {
+    title: 'Calm is a feature',
+    body: 'A tool that looks pure on paper but collapses under ordinary life is not a win for most people.',
+  },
+  {
+    title: 'Ownership beats drift',
+    body: 'The stack should reduce long-term dependence and increase continuity, not just optimize this week’s convenience.',
+  },
+]
+
 export const productPillars = [
   {
     title: 'Discover',
@@ -1110,6 +1226,7 @@ export const navigationItems = [
   { href: '/', label: 'Home' },
   { href: '/tools/', label: 'Tools' },
   { href: '/stacks/', label: 'Stacks' },
+  { href: '/reports/', label: 'Reports' },
   { href: '/compose/', label: 'Compose' },
   { href: '/replace/', label: 'Replace' },
   { href: '/compare/', label: 'Compare' },
@@ -1148,6 +1265,10 @@ export function getCollectionBySlug(slug: string) {
 
 export function getRankingLaneBySlug(slug: string) {
   return rankingLanes.find((lane) => lane.slug === slug)
+}
+
+export function getStackReportBySlug(slug: string) {
+  return stackReports.find((report) => report.slug === slug)
 }
 
 export function getCompareBySlug(slug: string) {

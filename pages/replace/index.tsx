@@ -2,6 +2,12 @@ import Link from 'next/link'
 import FuturisticShell from '../../components/FuturisticShell'
 import { getToolsByNames, replacementScenarios } from '../../lib/opentoolkit'
 
+function getPainMap(friction: 'Low' | 'Medium' | 'High') {
+  if (friction === 'Low') return ['Fast initial move', 'Low social drag', 'Mostly habit-level change']
+  if (friction === 'Medium') return ['Archive or workflow cleanup', 'Noticeable onboarding cost', 'Needs staged cutover']
+  return ['Identity and recovery fallout', 'Social or team coordination cost', 'Demands a migration ledger']
+}
+
 export default function ReplacePage() {
   return (
     <FuturisticShell title="Replace" eyebrow="Replacement engine">
@@ -67,6 +73,27 @@ export default function ReplacePage() {
                       </li>
                     ))}
                   </ol>
+                </div>
+              </div>
+
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '18px', marginTop: '18px' }}>
+                <div className="f-card" style={{ padding: '18px', background: 'rgba(255,255,255,0.03)' }}>
+                  <div className="f-kicker">Incumbent pain map</div>
+                  <div style={{ display: 'grid', gap: '8px', marginTop: '12px' }}>
+                    {getPainMap(scenario.friction).map((line) => (
+                      <div key={line} style={{ color: 'var(--text-soft)', lineHeight: 1.65 }}>
+                        {line}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="f-card" style={{ padding: '18px', background: 'rgba(255,255,255,0.03)' }}>
+                  <div className="f-kicker">Replacement posture</div>
+                  <div style={{ marginTop: '10px', color: 'var(--text-soft)', lineHeight: 1.7 }}>
+                    The right replacement is not the most ideological one. It is the route that reduces dependency
+                    and still survives ordinary life after the migration adrenaline wears off.
+                  </div>
                 </div>
               </div>
             </section>

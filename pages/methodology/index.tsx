@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import FuturisticShell from '../../components/FuturisticShell'
 
 export default function MethodologyPage() {
@@ -25,6 +26,38 @@ export default function MethodologyPage() {
           </section>
         ))}
       </div>
+
+      <section className="f-panel f-card rise-in" style={{ padding: '22px', marginTop: '22px' }}>
+        <div className="f-kicker">Judgment rubric</div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '14px', marginTop: '12px' }}>
+          {[
+            ['Trust', 'Does this tool reduce dependency or quietly deepen it?'],
+            ['Continuity', 'Can a person keep their work, archive, and habits across years?'],
+            ['Fit', 'Does it strengthen a stack or just win in isolation?'],
+            ['Retention', 'Will real people still use it after the first migration burst?'],
+          ].map(([title, body]) => (
+            <div key={title} className="f-card" style={{ padding: '16px', background: 'rgba(255,255,255,0.03)' }}>
+              <div style={{ fontWeight: 800 }}>{title}</div>
+              <div style={{ marginTop: '8px', color: 'var(--text-soft)', lineHeight: 1.7 }}>{body}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="f-panel f-card rise-in" style={{ padding: '22px', marginTop: '22px' }}>
+        <div className="f-kicker">Where that logic goes</div>
+        <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginTop: '12px' }}>
+          <Link href="/reports/" className="f-button">
+            Read verdict dossiers
+          </Link>
+          <Link href="/replace/" className="f-button f-button-ghost">
+            Open replacement engine
+          </Link>
+          <Link href="/radar/" className="f-button f-button-ghost">
+            Watch the signal layer
+          </Link>
+        </div>
+      </section>
     </FuturisticShell>
   )
 }
