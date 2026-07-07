@@ -1,8 +1,24 @@
 {
   "name": "opentoolkit",
-  "version": "1.0.0",
-  "description": "OpenToolkit - 500 Open Source Tools",
+  "version": "1.1.0",
+  "private": true,
+  "description": "OpenToolkit - a curated open-source stack builder for privacy, builders, and self-hosters.",
   "scripts": {
-    "deploy": "surge . opentoolkit.surge.sh"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "deploy": "vercel --prod"
+  },
+  "dependencies": {
+    "fuse.js": "^7.1.0",
+    "next": "^14.2.30",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "26.1.0",
+    "@types/react": "19.2.17",
+    "typescript": "6.0.3"
   }
 }
