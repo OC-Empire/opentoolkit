@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 import Link from 'next/link'
+import FuturisticShell from '../../components/FuturisticShell'
 import {
   allTools,
   formatStars,
@@ -32,16 +33,12 @@ export function getStaticProps({ params }: { params: { slug: string } }) {
 
 function SectionCard(props: { title: string; children: ReactNode }) {
   return (
-    <section
+    <section className="f-panel f-card"
       style={{
         padding: '22px',
-        borderRadius: '24px',
-        background: 'rgba(255, 252, 245, 0.94)',
-        border: '1px solid rgba(120, 53, 15, 0.12)',
-        boxShadow: '0 16px 44px rgba(84, 54, 9, 0.08)',
       }}
     >
-      <h2 style={{ margin: '0 0 14px', fontSize: '1.35rem', color: '#111827' }}>{props.title}</h2>
+      <h2 style={{ margin: '0 0 14px', fontSize: '1.35rem', color: 'var(--text-main)' }}>{props.title}</h2>
       {props.children}
     </section>
   )
@@ -57,17 +54,14 @@ export default function ToolPage({ slug }: ToolPageProps) {
   const recipes = getRecipesForTool(tool)
 
   return (
-    <div
-      style={{
-        minHeight: '100vh',
-        background:
-          'radial-gradient(circle at top left, rgba(255, 153, 0, 0.24), transparent 28%), radial-gradient(circle at top right, rgba(37, 99, 235, 0.2), transparent 24%), linear-gradient(180deg, #fbf7ef 0%, #f1ebdd 44%, #efe6d5 100%)',
-        color: '#1f2937',
-        fontFamily: '"Space Grotesk", "Segoe UI", "Helvetica Neue", sans-serif',
-      }}
+    <FuturisticShell
+      title={tool.name}
+      eyebrow={`${tool.category} dossier`}
+      backHref="/"
+      backLabel="← Back to OpenToolkit"
     >
-      <div style={{ maxWidth: '1180px', margin: '0 auto', padding: '28px 18px 80px' }}>
         <div
+          className="rise-in"
           style={{
             display: 'flex',
             justifyContent: 'space-between',
@@ -77,23 +71,13 @@ export default function ToolPage({ slug }: ToolPageProps) {
             marginBottom: '18px',
           }}
         >
-          <Link href="/" style={{ color: '#9a3412', textDecoration: 'none', fontWeight: 800 }}>
-            ← Back to OpenToolkit
-          </Link>
           <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
             {recipes.map((recipe) => (
               <Link
                 key={recipe.slug}
                 href={`/stacks/${recipe.slug}/`}
-                style={{
-                  padding: '8px 12px',
-                  borderRadius: '999px',
-                  background: '#fff7ed',
-                  color: '#9a3412',
-                  textDecoration: 'none',
-                  fontSize: '0.82rem',
-                  fontWeight: 700,
-                }}
+                className="f-chip f-chip-blue"
+                style={{ textDecoration: 'none' }}
               >
                 In {recipe.name}
               </Link>
@@ -102,12 +86,10 @@ export default function ToolPage({ slug }: ToolPageProps) {
         </div>
 
         <section
+          className="f-hero f-card rise-in"
           style={{
             padding: '28px',
-            borderRadius: '30px',
-            background: 'rgba(255, 252, 245, 0.88)',
-            border: '1px solid rgba(120, 53, 15, 0.12)',
-            boxShadow: '0 22px 70px rgba(84, 54, 9, 0.12)',
+            animationDelay: '0.06s',
           }}
         >
           <div
@@ -130,64 +112,42 @@ export default function ToolPage({ slug }: ToolPageProps) {
               >
                 <span
                   style={{
-                    padding: '7px 11px',
-                    borderRadius: '999px',
-                    background: '#111827',
-                    color: '#fff7ed',
-                    fontSize: '0.8rem',
-                    fontWeight: 800,
+                    textDecoration: 'none',
                   }}
+                  className="f-chip f-chip-red"
                 >
                   {tool.category}
                 </span>
                 {tool.verified && (
                   <span
-                    style={{
-                      padding: '7px 11px',
-                      borderRadius: '999px',
-                      background: '#dcfce7',
-                      color: '#166534',
-                      fontSize: '0.8rem',
-                      fontWeight: 800,
-                    }}
+                    className="f-chip f-chip-blue"
                   >
                     Verified
                   </span>
                 )}
                 <span
-                  style={{
-                    padding: '7px 11px',
-                    borderRadius: '999px',
-                    background: '#ffedd5',
-                    color: '#9a3412',
-                    fontSize: '0.8rem',
-                    fontWeight: 800,
-                  }}
+                  className="f-chip"
                 >
                   {getWhyItWins(tool)}
                 </span>
               </div>
 
-              <h1 style={{ margin: '0 0 12px', fontSize: 'clamp(2.5rem, 6vw, 4.8rem)', lineHeight: 0.96 }}>
-                {tool.name}
-              </h1>
-              <p style={{ margin: 0, color: '#4b5563', fontSize: '1.08rem', lineHeight: 1.75 }}>
+              <p style={{ margin: 0, color: 'var(--text-soft)', fontSize: '1.08rem', lineHeight: 1.75 }}>
                 {tool.description}
               </p>
             </div>
 
             <div
+              className="f-panel f-card"
               style={{
                 minWidth: '220px',
                 padding: '18px',
-                borderRadius: '24px',
-                background: '#111827',
-                color: '#fff7ed',
+                color: 'var(--text-main)',
               }}
             >
               <div style={{ fontSize: '2.4rem', fontWeight: 800 }}>{tool.score}</div>
-              <div style={{ opacity: 0.76, marginBottom: '12px' }}>OpenToolkit score</div>
-              <div style={{ lineHeight: 1.8 }}>
+              <div style={{ opacity: 0.76, marginBottom: '12px', color: 'var(--text-soft)' }}>OpenToolkit score</div>
+              <div style={{ lineHeight: 1.8, color: 'var(--text-soft)' }}>
                 <div>{formatStars(tool.stars)} stars</div>
                 <div>{tool.license}</div>
                 <div>{tool.sourceType}</div>
@@ -199,11 +159,8 @@ export default function ToolPage({ slug }: ToolPageProps) {
             {tool.platforms.map((platform) => (
               <span
                 key={platform}
+                className="f-chip"
                 style={{
-                  padding: '8px 12px',
-                  borderRadius: '999px',
-                  background: '#fff7ed',
-                  color: '#6b7280',
                   fontSize: '0.82rem',
                 }}
               >
@@ -217,14 +174,7 @@ export default function ToolPage({ slug }: ToolPageProps) {
               href={tool.sourceUrl}
               target="_blank"
               rel="noopener noreferrer"
-              style={{
-                padding: '13px 18px',
-                borderRadius: '16px',
-                background: '#111827',
-                color: '#fff7ed',
-                textDecoration: 'none',
-                fontWeight: 800,
-              }}
+              className="f-button"
             >
               Open source
             </a>
@@ -232,14 +182,7 @@ export default function ToolPage({ slug }: ToolPageProps) {
               href={`https://www.google.com/search?q=${encodeURIComponent(`${tool.name} review`)}`}
               target="_blank"
               rel="noopener noreferrer"
-              style={{
-                padding: '13px 18px',
-                borderRadius: '16px',
-                background: '#fff7ed',
-                color: '#9a3412',
-                textDecoration: 'none',
-                fontWeight: 800,
-              }}
+              className="f-button f-button-ghost"
             >
               Research this tool
             </a>
@@ -255,7 +198,7 @@ export default function ToolPage({ slug }: ToolPageProps) {
           }}
         >
           <SectionCard title="Why It Matters">
-            <p style={{ margin: 0, color: '#4b5563', lineHeight: 1.8 }}>
+            <p style={{ margin: 0, color: 'var(--text-soft)', lineHeight: 1.8 }}>
               {tool.name} earns a place here because it helps push a user away from default rented software and
               toward a more durable, inspectable stack. The point of OpenToolkit is not feature parity theater.
               It is stack quality, control, and long-term leverage.
@@ -263,7 +206,7 @@ export default function ToolPage({ slug }: ToolPageProps) {
           </SectionCard>
 
           <SectionCard title="Best For">
-            <div style={{ color: '#4b5563', lineHeight: 1.8 }}>
+            <div style={{ color: 'var(--text-soft)', lineHeight: 1.8 }}>
               <div>Users prioritizing: {tool.category.toLowerCase()}</div>
               <div>Platforms covered: {tool.platforms.map(labelPlatform).join(', ')}</div>
               <div>Recommendation class: {getWhyItWins(tool)}</div>
@@ -285,17 +228,17 @@ export default function ToolPage({ slug }: ToolPageProps) {
                 <Link
                   key={alternative.slug}
                   href={`/tools/${alternative.slug}/`}
+                  className="f-card"
                   style={{
                     padding: '14px',
-                    borderRadius: '18px',
-                    background: '#fffaf0',
-                    border: '1px solid rgba(120, 53, 15, 0.08)',
+                    background: 'rgba(255,255,255,0.03)',
                     textDecoration: 'none',
-                    color: '#111827',
+                    color: 'var(--text-main)',
+                    display: 'block',
                   }}
                 >
                   <div style={{ fontWeight: 800 }}>{alternative.name}</div>
-                  <div style={{ marginTop: '6px', color: '#6b7280', lineHeight: 1.6 }}>{alternative.description}</div>
+                  <div style={{ marginTop: '6px', color: 'var(--text-soft)', lineHeight: 1.6 }}>{alternative.description}</div>
                 </Link>
               ))}
             </div>
@@ -307,17 +250,17 @@ export default function ToolPage({ slug }: ToolPageProps) {
                 <Link
                   key={complement.slug}
                   href={`/tools/${complement.slug}/`}
+                  className="f-card"
                   style={{
                     padding: '14px',
-                    borderRadius: '18px',
-                    background: '#fffaf0',
-                    border: '1px solid rgba(120, 53, 15, 0.08)',
+                    background: 'rgba(255,255,255,0.03)',
                     textDecoration: 'none',
-                    color: '#111827',
+                    color: 'var(--text-main)',
+                    display: 'block',
                   }}
                 >
                   <div style={{ fontWeight: 800 }}>{complement.name}</div>
-                  <div style={{ marginTop: '6px', color: '#6b7280', lineHeight: 1.6 }}>{complement.description}</div>
+                  <div style={{ marginTop: '6px', color: 'var(--text-soft)', lineHeight: 1.6 }}>{complement.description}</div>
                 </Link>
               ))}
             </div>
@@ -330,21 +273,21 @@ export default function ToolPage({ slug }: ToolPageProps) {
                   <Link
                     key={recipe.slug}
                     href={`/stacks/${recipe.slug}/`}
+                    className="f-card"
                     style={{
                       padding: '14px',
-                      borderRadius: '18px',
-                      background: '#fffaf0',
-                      border: '1px solid rgba(120, 53, 15, 0.08)',
+                      background: 'rgba(255,255,255,0.03)',
                       textDecoration: 'none',
-                      color: '#111827',
+                      color: 'var(--text-main)',
+                      display: 'block',
                     }}
                   >
                     <div style={{ fontWeight: 800 }}>{recipe.name}</div>
-                    <div style={{ marginTop: '6px', color: '#6b7280', lineHeight: 1.6 }}>{recipe.promise}</div>
+                    <div style={{ marginTop: '6px', color: 'var(--text-soft)', lineHeight: 1.6 }}>{recipe.promise}</div>
                   </Link>
                 ))
               ) : (
-                <div style={{ color: '#6b7280', lineHeight: 1.7 }}>
+                <div style={{ color: 'var(--text-soft)', lineHeight: 1.7 }}>
                   Not attached to a stack recipe yet. That is exactly the kind of editorial layer OpenToolkit
                   should keep adding.
                 </div>
@@ -352,7 +295,6 @@ export default function ToolPage({ slug }: ToolPageProps) {
             </div>
           </SectionCard>
         </div>
-      </div>
-    </div>
+    </FuturisticShell>
   )
 }

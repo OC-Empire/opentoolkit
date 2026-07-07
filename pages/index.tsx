@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import Fuse from 'fuse.js'
 import Link from 'next/link'
 import tools from '../data/tools.json'
+import FuturisticShell from '../components/FuturisticShell'
 
 type Tool = {
   id: string
@@ -167,43 +168,12 @@ export default function Home() {
   const visibleTools = results.slice(0, 24)
 
   return (
-    <div
-      style={{
-        minHeight: '100vh',
-        background:
-          'radial-gradient(circle at top left, rgba(255, 153, 0, 0.24), transparent 28%), radial-gradient(circle at top right, rgba(37, 99, 235, 0.2), transparent 24%), linear-gradient(180deg, #fbf7ef 0%, #f1ebdd 44%, #efe6d5 100%)',
-        color: '#1f2937',
-        fontFamily: '"Space Grotesk", "Segoe UI", "Helvetica Neue", sans-serif',
-      }}
-    >
-      <style jsx>{`
-        @keyframes riseIn {
-          from {
-            opacity: 0;
-            transform: translateY(18px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        .rise-in {
-          animation: riseIn 0.55s ease-out both;
-        }
-      `}</style>
-
-      <div style={{ maxWidth: '1240px', margin: '0 auto', padding: '28px 18px 80px' }}>
+    <FuturisticShell>
         <section
-          className="rise-in"
+          className="rise-in f-hero f-card"
           style={{
-            position: 'relative',
-            overflow: 'hidden',
-            borderRadius: '32px',
             padding: '28px',
-            background: 'rgba(255, 252, 245, 0.82)',
-            border: '1px solid rgba(120, 53, 15, 0.12)',
-            boxShadow: '0 22px 70px rgba(84, 54, 9, 0.12)',
+            marginBottom: '22px',
           }}
         >
           <div
@@ -211,7 +181,7 @@ export default function Home() {
               position: 'absolute',
               inset: 0,
               background:
-                'linear-gradient(135deg, rgba(251, 191, 36, 0.12), transparent 35%), linear-gradient(220deg, rgba(37, 99, 235, 0.12), transparent 45%)',
+                'linear-gradient(135deg, rgba(255, 49, 95, 0.16), transparent 28%), linear-gradient(220deg, rgba(53, 194, 255, 0.14), transparent 38%)',
               pointerEvents: 'none',
             }}
           />
@@ -230,15 +200,8 @@ export default function Home() {
                   display: 'inline-flex',
                   alignItems: 'center',
                   gap: '10px',
-                  padding: '8px 14px',
-                  borderRadius: '999px',
-                  background: '#1f2937',
-                  color: '#fff8eb',
-                  fontSize: '0.84rem',
-                  fontWeight: 700,
-                  letterSpacing: '0.04em',
-                  textTransform: 'uppercase',
                 }}
+                className="f-chip f-chip-red"
               >
                 <span>OpenToolkit</span>
                 <span style={{ opacity: 0.72 }}>Privacy-first arsenal</span>
@@ -250,10 +213,10 @@ export default function Home() {
                   fontSize: 'clamp(2.6rem, 6vw, 5.6rem)',
                   lineHeight: 0.95,
                   letterSpacing: '-0.05em',
-                  color: '#111827',
+                  color: 'var(--text-main)',
                 }}
               >
-                Stop hunting.
+                <span className="f-gradient">Stop hunting.</span>
                 <br />
                 Start building your stack.
               </h1>
@@ -264,7 +227,7 @@ export default function Home() {
                   maxWidth: '620px',
                   fontSize: '1.08rem',
                   lineHeight: 1.7,
-                  color: '#4b5563',
+                  color: 'var(--text-soft)',
                 }}
               >
                 OpenToolkit should feel like a mission-control surface for open-source software, not a long
@@ -289,15 +252,13 @@ export default function Home() {
               ].map((stat) => (
                 <div
                   key={stat.label}
+                  className="f-panel f-card"
                   style={{
                     padding: '18px',
-                    borderRadius: '22px',
-                    background: 'rgba(255,255,255,0.72)',
-                    border: '1px solid rgba(120, 53, 15, 0.12)',
                   }}
                 >
-                  <div style={{ fontSize: '2rem', fontWeight: 800, color: '#111827' }}>{stat.value}</div>
-                  <div style={{ marginTop: '6px', color: '#6b7280', fontSize: '0.92rem' }}>{stat.label}</div>
+                  <div style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--text-main)' }}>{stat.value}</div>
+                  <div style={{ marginTop: '6px', color: 'var(--text-soft)', fontSize: '0.92rem' }}>{stat.label}</div>
                 </div>
               ))}
             </div>
@@ -320,18 +281,15 @@ export default function Home() {
                   setPlatform(mode.platform)
                   setSearch('')
                 }}
+                className="f-panel f-card"
                 style={{
                   textAlign: 'left',
                   padding: '18px 18px 20px',
-                  borderRadius: '24px',
-                  border: '1px solid rgba(120, 53, 15, 0.12)',
-                  background: 'rgba(255, 252, 245, 0.88)',
                   cursor: 'pointer',
-                  boxShadow: '0 10px 30px rgba(84, 54, 9, 0.06)',
                 }}
               >
-                <div style={{ fontWeight: 800, color: '#111827', fontSize: '1.02rem' }}>{mode.label}</div>
-                <div style={{ marginTop: '8px', color: '#6b7280', lineHeight: 1.55, fontSize: '0.94rem' }}>
+                <div style={{ fontWeight: 800, color: 'var(--text-main)', fontSize: '1.02rem' }}>{mode.label}</div>
+                <div style={{ marginTop: '8px', color: 'var(--text-soft)', lineHeight: 1.55, fontSize: '0.94rem' }}>
                   {mode.description}
                 </div>
               </button>
@@ -340,15 +298,11 @@ export default function Home() {
         </section>
 
         <section
-          className="rise-in"
+          className="rise-in f-panel f-card"
           style={{
             marginTop: '22px',
             animationDelay: '0.14s',
             padding: '20px',
-            borderRadius: '28px',
-            background: 'rgba(255, 252, 245, 0.9)',
-            border: '1px solid rgba(120, 53, 15, 0.12)',
-            boxShadow: '0 16px 44px rgba(84, 54, 9, 0.08)',
           }}
         >
           <div
@@ -363,30 +317,15 @@ export default function Home() {
               placeholder="Search by tool, problem, category, platform, or license..."
               value={search}
               onChange={(event) => setSearch(event.target.value)}
-              style={{
-                width: '100%',
-                padding: '16px 18px',
-                borderRadius: '18px',
-                border: '1px solid rgba(120, 53, 15, 0.18)',
-                background: '#fffdf8',
-                color: '#111827',
-                fontSize: '1rem',
-                outline: 'none',
-              }}
+              className="f-input"
+              style={{ fontSize: '1rem' }}
             />
 
             <select
               value={category}
               onChange={(event) => setCategory(event.target.value)}
-              style={{
-                width: '100%',
-                padding: '16px 18px',
-                borderRadius: '18px',
-                border: '1px solid rgba(120, 53, 15, 0.18)',
-                background: '#fffdf8',
-                color: '#111827',
-                fontSize: '1rem',
-              }}
+              className="f-select"
+              style={{ fontSize: '1rem' }}
             >
               {categories.map((item) => (
                 <option key={item} value={item}>
@@ -398,15 +337,8 @@ export default function Home() {
             <select
               value={platform}
               onChange={(event) => setPlatform(event.target.value)}
-              style={{
-                width: '100%',
-                padding: '16px 18px',
-                borderRadius: '18px',
-                border: '1px solid rgba(120, 53, 15, 0.18)',
-                background: '#fffdf8',
-                color: '#111827',
-                fontSize: '1rem',
-              }}
+              className="f-select"
+              style={{ fontSize: '1rem' }}
             >
               {platforms.map((item) => (
                 <option key={item} value={item}>
@@ -427,13 +359,8 @@ export default function Home() {
           >
             <button
               onClick={() => setVerifiedOnly((current) => !current)}
+              className={verifiedOnly ? 'f-chip f-chip-blue' : 'f-chip'}
               style={{
-                padding: '10px 14px',
-                borderRadius: '999px',
-                border: verifiedOnly ? '1px solid #1d4ed8' : '1px solid rgba(120, 53, 15, 0.16)',
-                background: verifiedOnly ? '#dbeafe' : '#fffaf0',
-                color: verifiedOnly ? '#1d4ed8' : '#6b7280',
-                fontWeight: 700,
                 cursor: 'pointer',
               }}
             >
@@ -447,22 +374,17 @@ export default function Home() {
                 setPlatform('All')
                 setVerifiedOnly(false)
               }}
+              className="f-chip"
               style={{
-                padding: '10px 14px',
-                borderRadius: '999px',
-                border: '1px solid rgba(120, 53, 15, 0.16)',
-                background: '#fffaf0',
-                color: '#6b7280',
-                fontWeight: 700,
                 cursor: 'pointer',
               }}
             >
               Reset
             </button>
 
-            <div style={{ marginLeft: 'auto', color: '#6b7280', fontSize: '0.96rem' }}>
-              Showing <strong style={{ color: '#111827' }}>{Math.min(visibleTools.length, results.length)}</strong>{' '}
-              of <strong style={{ color: '#111827' }}>{results.length}</strong> matching tools
+            <div style={{ marginLeft: 'auto', color: 'var(--text-soft)', fontSize: '0.96rem' }}>
+              Showing <strong style={{ color: 'var(--ice-blue)' }}>{Math.min(visibleTools.length, results.length)}</strong>{' '}
+              of <strong style={{ color: 'var(--ice-blue)' }}>{results.length}</strong> matching tools
             </div>
           </div>
         </section>
@@ -973,7 +895,6 @@ export default function Home() {
             </a>
           </div>
         </footer>
-      </div>
-    </div>
+    </FuturisticShell>
   )
 }
