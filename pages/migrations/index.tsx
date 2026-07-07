@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import FuturisticShell from '../../components/FuturisticShell'
-import { getToolsByNames, migrationGuides } from '../../lib/opentoolkit'
+import { getToolsByNames, migrationGuides, migrationJourneys } from '../../lib/opentoolkit'
 
 export default function MigrationsPage() {
   return (
@@ -10,6 +10,42 @@ export default function MigrationsPage() {
           Migration is where this site becomes more than inspiration. People need replacement logic, pain-level honesty,
           and a path that respects how sticky defaults really are.
         </p>
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '14px', marginTop: '18px' }}>
+          {migrationJourneys.map((journey) => (
+            <div key={journey.slug} className="f-card" style={{ padding: '18px', background: 'rgba(255,255,255,0.03)' }}>
+              <div className="f-kicker">Flagship route</div>
+              <div style={{ marginTop: '10px', fontWeight: 800, fontSize: '1.18rem' }}>{journey.title}</div>
+              <div style={{ marginTop: '6px', color: 'var(--text-soft)', lineHeight: 1.65 }}>{journey.subtitle}</div>
+              <div style={{ marginTop: '14px' }}>
+                <Link href={`/migrations/${journey.slug}/`} className="f-button">
+                  Enter the journey
+                </Link>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="rise-in" style={{ marginTop: '22px' }}>
+        <div className="f-panel f-card" style={{ padding: '22px' }}>
+          <div className="f-kicker">Journey map</div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '12px', marginTop: '12px' }}>
+            {migrationJourneys.map((journey) => (
+              <Link
+                key={journey.slug}
+                href={`/migrations/${journey.slug}/`}
+                className="f-card"
+                style={{ padding: '16px', background: 'rgba(255,255,255,0.03)', textDecoration: 'none', color: 'var(--text-main)' }}
+              >
+                <div style={{ fontWeight: 800 }}>{journey.title}</div>
+                <div style={{ marginTop: '6px', color: 'var(--text-soft)', lineHeight: 1.6 }}>
+                  {journey.phases.length} phases · {journey.warnings.length} warnings
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
       </section>
 
       <div style={{ display: 'grid', gap: '18px', marginTop: '22px' }}>

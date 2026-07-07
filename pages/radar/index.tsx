@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import FuturisticShell from '../../components/FuturisticShell'
-import { getToolsByNames, radarEntries } from '../../lib/opentoolkit'
+import { changeSignals, getToolsByNames, intelligenceLedger, radarEntries } from '../../lib/opentoolkit'
 
 export default function RadarPage() {
   return (
@@ -10,6 +10,94 @@ export default function RadarPage() {
           Radar is where OpenToolkit starts feeling alive. It is the running signal layer for what is rising,
           stabilizing, or becoming strategically important in the software landscape.
         </p>
+      </section>
+
+      <section className="rise-in" style={{ marginTop: '22px' }}>
+        <div className="f-panel f-card" style={{ padding: '22px' }}>
+          <div className="f-kicker">What changed this week</div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '14px', marginTop: '12px' }}>
+            {changeSignals.map((signal) => {
+              const tools = getToolsByNames(signal.affectedToolNames)
+
+              return (
+                <div key={signal.slug} className="f-card" style={{ padding: '16px', background: 'rgba(255,255,255,0.03)' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', gap: '12px', alignItems: 'center' }}>
+                    <div style={{ fontWeight: 800 }}>{signal.label}</div>
+                    <div className="f-chip f-chip-blue">{signal.intensity}</div>
+                  </div>
+                  <div style={{ marginTop: '8px', color: 'var(--text-soft)', lineHeight: 1.65 }}>{signal.summary}</div>
+                  <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginTop: '12px' }}>
+                    {tools.map((tool) => (
+                      <Link
+                        key={tool.slug}
+                        href={`/tools/${tool.slug}/`}
+                        className="f-chip"
+                        style={{ textDecoration: 'none' }}
+                      >
+                        {tool.name}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+      </section>
+
+      <section className="rise-in" style={{ marginTop: '22px' }}>
+        <div className="f-panel f-card" style={{ padding: '22px' }}>
+          <div className="f-kicker">Weekly intelligence ledger</div>
+          <div style={{ display: 'grid', gap: '14px', marginTop: '12px' }}>
+            {intelligenceLedger.map((entry) => {
+              const tools = getToolsByNames(entry.toolNames)
+
+              return (
+                <div key={entry.slug} className="f-card" style={{ padding: '18px', background: 'rgba(255,255,255,0.03)' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', gap: '12px', flexWrap: 'wrap', alignItems: 'center' }}>
+                    <div>
+                      <div className="f-kicker">{entry.weekOf}</div>
+                      <div style={{ fontWeight: 800, fontSize: '1.12rem', marginTop: '8px' }}>{entry.title}</div>
+                    </div>
+                    <div className="f-chip f-chip-red">{entry.status}</div>
+                  </div>
+                  <div style={{ marginTop: '10px', color: 'var(--text-soft)', lineHeight: 1.7 }}>{entry.summary}</div>
+
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginTop: '14px' }}>
+                    <div className="f-card" style={{ padding: '14px', background: 'rgba(255,255,255,0.03)' }}>
+                      <div className="f-kicker">Signals</div>
+                      <div style={{ display: 'grid', gap: '8px', marginTop: '10px' }}>
+                        {entry.signals.map((signal) => (
+                          <div key={signal} style={{ color: 'var(--text-soft)', lineHeight: 1.6 }}>
+                            {signal}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="f-card" style={{ padding: '14px', background: 'rgba(255,255,255,0.03)' }}>
+                      <div className="f-kicker">Actions</div>
+                      <div style={{ display: 'grid', gap: '8px', marginTop: '10px' }}>
+                        {entry.actions.map((action) => (
+                          <div key={action} style={{ color: 'var(--text-soft)', lineHeight: 1.6 }}>
+                            {action}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginTop: '12px' }}>
+                    {tools.map((tool) => (
+                      <Link key={tool.slug} href={`/tools/${tool.slug}/`} className="f-chip" style={{ textDecoration: 'none' }}>
+                        {tool.name}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        </div>
       </section>
 
       <div style={{ display: 'grid', gap: '18px', marginTop: '22px' }}>

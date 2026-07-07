@@ -9,9 +9,14 @@ import {
   formatStars,
   getSpotlights,
   getWhyItWins,
+  intelligenceLedger,
   labelPlatform,
   migrationGuides,
+  migrationJourneys,
+  missionProfiles,
   productPillars,
+  replacementScenarios,
+  scenarioPresets,
   stackRecipes,
   Tool,
 } from '../lib/opentoolkit'
@@ -26,9 +31,24 @@ const entryPaths = [
     href: '/stacks/',
   },
   {
+    title: 'Compose your stack',
+    body: 'Choose a mission profile and let the platform shape the loadout.',
+    href: '/compose/',
+  },
+  {
+    title: 'Ask what replaces this',
+    body: 'Move from incumbent tools to real alternatives with friction honesty.',
+    href: '/replace/',
+  },
+  {
     title: 'Compare two serious options',
     body: 'See tradeoffs without ten tabs of fragmented research.',
     href: '/compare/',
+  },
+  {
+    title: 'Inspect the relationship graph',
+    body: 'See how anchor tools connect across alternatives, complements, and migration logic.',
+    href: '/graph/',
   },
   {
     title: 'Plan a migration',
@@ -120,6 +140,7 @@ export default function Home() {
   const spotlightTools = getSpotlights(4)
   const verifiedCount = allTools.filter((tool) => tool.verified).length
   const migrationCount = migrationGuides.length
+  const flagshipJourney = migrationJourneys[0]
 
   return (
     <FuturisticShell>
@@ -145,11 +166,17 @@ export default function Home() {
             </p>
 
             <div style={{ marginTop: '22px', display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+              <Link href="/compose/" className="f-button">
+                Compose a stack
+              </Link>
               <Link href="/compare/" className="f-button">
                 Enter compare mode
               </Link>
-              <Link href="/migrations/" className="f-button f-button-ghost">
-                View migration paths
+              <Link href="/replace/" className="f-button f-button-ghost">
+                Open replacement engine
+              </Link>
+              <Link href="/graph/" className="f-button f-button-ghost">
+                Inspect the graph
               </Link>
               <Link href="/shortlist/" className="f-button f-button-ghost">
                 Open shortlist
@@ -166,17 +193,49 @@ export default function Home() {
               gap: '14px',
             }}
           >
-            {[
-              { value: `${allTools.length}+`, label: 'Curated tools' },
-              { value: `${verifiedCount}`, label: 'Verified picks' },
-              { value: `${stackRecipes.length}`, label: 'Flagship stacks' },
-              { value: `${migrationCount}`, label: 'Migration guides' },
-            ].map((stat) => (
-              <div key={stat.label} className="f-card" style={{ padding: '16px', background: 'rgba(255,255,255,0.03)' }}>
-                <div style={{ fontSize: '1.8rem', fontWeight: 800 }}>{stat.value}</div>
+              {[
+                { value: `${allTools.length}+`, label: 'Curated tools' },
+                { value: `${verifiedCount}`, label: 'Verified picks' },
+                { value: `${stackRecipes.length}`, label: 'Flagship stacks' },
+                { value: `${migrationCount + migrationJourneys.length}`, label: 'Migration routes' },
+              ].map((stat) => (
+                <div key={stat.label} className="f-card" style={{ padding: '16px', background: 'rgba(255,255,255,0.03)' }}>
+                  <div style={{ fontSize: '1.8rem', fontWeight: 800 }}>{stat.value}</div>
                 <div style={{ marginTop: '6px', color: 'var(--text-soft)' }}>{stat.label}</div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="rise-in" style={{ marginTop: '22px', animationDelay: '0.1s' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1.05fr 0.95fr', gap: '18px' }}>
+          <div className="f-panel f-card" style={{ padding: '22px' }}>
+            <div className="f-kicker">Flagship journey</div>
+            <h2 style={{ margin: '10px 0 0', fontSize: '2rem' }}>{flagshipJourney.title}</h2>
+            <p style={{ margin: '12px 0 0', color: 'var(--text-soft)', lineHeight: 1.75 }}>{flagshipJourney.subtitle}</p>
+            <div style={{ marginTop: '18px', display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+              <Link href={`/migrations/${flagshipJourney.slug}/`} className="f-button">
+                Enter the journey
+              </Link>
+              <Link href="/migrations/" className="f-button f-button-ghost">
+                All migration routes
+              </Link>
+            </div>
+          </div>
+
+          <div className="f-panel f-card" style={{ padding: '22px' }}>
+            <div className="f-kicker">Mission profiles</div>
+            <div style={{ display: 'grid', gap: '10px', marginTop: '12px' }}>
+              {missionProfiles.slice(0, 4).map((profile) => (
+                <Link key={profile.slug} href="/compose/" style={{ textDecoration: 'none', color: 'var(--text-main)' }}>
+                  <div className="f-card" style={{ padding: '14px', background: 'rgba(255,255,255,0.03)' }}>
+                    <div style={{ fontWeight: 800 }}>{profile.name}</div>
+                    <div style={{ marginTop: '6px', color: 'var(--text-soft)', lineHeight: 1.6 }}>{profile.description}</div>
+                  </div>
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -195,6 +254,50 @@ export default function Home() {
               <div style={{ marginTop: '8px', color: 'var(--text-soft)', lineHeight: 1.6 }}>{path.body}</div>
             </Link>
           ))}
+        </div>
+      </section>
+
+      <section className="rise-in" style={{ marginTop: '22px', animationDelay: '0.1s' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1.05fr 0.95fr', gap: '18px' }}>
+          <div className="f-panel f-card" style={{ padding: '22px' }}>
+            <div className="f-kicker">Mission control</div>
+            <div style={{ display: 'grid', gap: '10px', marginTop: '12px' }}>
+              {scenarioPresets.map((preset) => (
+                <Link
+                  key={preset.slug}
+                  href="/compare/"
+                  className="f-card"
+                  style={{ padding: '14px', background: 'rgba(255,255,255,0.03)', textDecoration: 'none', color: 'var(--text-main)' }}
+                >
+                  <div style={{ display: 'flex', justifyContent: 'space-between', gap: '12px', alignItems: 'center' }}>
+                    <div style={{ fontWeight: 800 }}>{preset.name}</div>
+                    <div className="f-chip">{preset.compareGuideSlugs.length} compares</div>
+                  </div>
+                  <div style={{ marginTop: '6px', color: 'var(--text-soft)', lineHeight: 1.6 }}>{preset.description}</div>
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          <div className="f-panel f-card" style={{ padding: '22px' }}>
+            <div className="f-kicker">Signal ledger</div>
+            <div style={{ display: 'grid', gap: '10px', marginTop: '12px' }}>
+              {intelligenceLedger.slice(0, 3).map((entry) => (
+                <Link
+                  key={entry.slug}
+                  href="/radar/"
+                  className="f-card"
+                  style={{ padding: '14px', background: 'rgba(255,255,255,0.03)', textDecoration: 'none', color: 'var(--text-main)' }}
+                >
+                  <div style={{ display: 'flex', justifyContent: 'space-between', gap: '12px', alignItems: 'center' }}>
+                    <div style={{ fontWeight: 800 }}>{entry.title}</div>
+                    <div className="f-chip f-chip-red">{entry.status}</div>
+                  </div>
+                  <div style={{ marginTop: '6px', color: 'var(--text-soft)', lineHeight: 1.6 }}>{entry.summary}</div>
+                </Link>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
@@ -271,6 +374,39 @@ export default function Home() {
               <div style={{ color: 'var(--text-dim)', fontSize: '0.92rem' }}>{tool.category}</div>
             </Link>
           ))}
+        </div>
+      </section>
+
+      <section className="rise-in" style={{ marginTop: '22px', animationDelay: '0.18s' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '18px' }}>
+          <div className="f-panel f-card" style={{ padding: '22px' }}>
+            <div className="f-kicker">Replacement engine</div>
+            <div style={{ display: 'grid', gap: '10px', marginTop: '12px' }}>
+              {replacementScenarios.slice(0, 3).map((scenario) => (
+                <Link key={scenario.slug} href="/replace/" style={{ textDecoration: 'none', color: 'var(--text-main)' }}>
+                  <div className="f-card" style={{ padding: '14px', background: 'rgba(255,255,255,0.03)' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', gap: '12px' }}>
+                      <span style={{ fontWeight: 800 }}>{scenario.incumbent}</span>
+                      <span className="f-chip">{scenario.friction}</span>
+                    </div>
+                    <div style={{ marginTop: '6px', color: 'var(--text-soft)', lineHeight: 1.6 }}>{scenario.problem}</div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          <div className="f-panel f-card" style={{ padding: '22px' }}>
+            <div className="f-kicker">Product pillars</div>
+            <div style={{ display: 'grid', gap: '10px', marginTop: '12px' }}>
+              {productPillars.map((pillar) => (
+                <div key={pillar.title} className="f-card" style={{ padding: '14px', background: 'rgba(255,255,255,0.03)' }}>
+                  <div style={{ fontWeight: 800 }}>{pillar.title}</div>
+                  <div style={{ marginTop: '6px', color: 'var(--text-soft)', lineHeight: 1.6 }}>{pillar.body}</div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
